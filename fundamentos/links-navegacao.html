@@ -1,0 +1,1943 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Links e Navegação em HTML | Guia Completo e Interativo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #7c3aed;
+        --accent: #f59e0b;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --code-bg: #0f172a;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --link: #3b82f6;
+        --link-hover: #1d4ed8;
+        --nav-bg: #1e293b;
+      }
+
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        padding: 60px 20px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 20px 20px;
+        animation: moveGrid 20s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes moveGrid {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(20px, 20px);
+        }
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .nav-links {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 16px;
+        margin: 30px 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 20px;
+        z-index: 100;
+      }
+
+      .nav-links h3 {
+        margin-bottom: 15px;
+        color: var(--primary);
+        font-size: 1.1rem;
+      }
+
+      .links-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
+      }
+
+      .links-nav a {
+        text-decoration: none;
+        background: var(--light);
+        color: var(--dark);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .links-nav a:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      }
+
+      main {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+      }
+
+      section {
+        margin-bottom: 60px;
+        scroll-margin-top: 120px;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      h2::before {
+        content: attr(data-icon);
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        color: var(--secondary);
+        margin: 30px 0 15px;
+      }
+
+      p {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .intro-box {
+        background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        padding: 30px;
+        border-radius: 16px;
+        margin: 30px 0;
+        border-left: 5px solid var(--primary);
+      }
+
+      .code-example {
+        background: var(--code-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 25px 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .code-header {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .code-title {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .copy-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .copy-btn:hover {
+        background: var(--primary);
+      }
+
+      pre {
+        padding: 25px;
+        overflow-x: auto;
+        color: #e2e8f0;
+        font-family: "Fira Code", "Consolas", monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      code {
+        font-family: "Fira Code", "Consolas", monospace;
+      }
+
+      .preview-box {
+        background: #f1f5f9;
+        border: 2px dashed #cbd5e1;
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 15px;
+      }
+
+      .preview-label {
+        font-size: 0.85rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .link-types-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+
+      .link-type-card {
+        background: white;
+        border: 3px solid;
+        border-radius: 16px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .link-type-card.external {
+        border-color: var(--success);
+      }
+      .link-type-card.internal {
+        border-color: var(--primary);
+      }
+      .link-type-card.anchor {
+        border-color: var(--accent);
+      }
+      .link-type-card.functional {
+        border-color: var(--secondary);
+      }
+
+      .link-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 15px;
+      }
+
+      .link-type-card.external .link-badge {
+        background: var(--success);
+      }
+      .link-type-card.internal .link-badge {
+        background: var(--primary);
+      }
+      .link-type-card.anchor .link-badge {
+        background: var(--accent);
+      }
+      .link-type-card.functional .link-badge {
+        background: var(--secondary);
+      }
+
+      .link-type-title {
+        font-family: "Fira Code", monospace;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .link-type-card.external .link-type-title {
+        color: var(--success);
+      }
+      .link-type-card.internal .link-type-title {
+        color: var(--primary);
+      }
+      .link-type-card.anchor .link-type-title {
+        color: var(--accent);
+      }
+      .link-type-card.functional .link-type-title {
+        color: var(--secondary);
+      }
+
+      .live-example {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 15px;
+        border-left: 4px solid;
+      }
+
+      .link-type-card.external .live-example {
+        border-left-color: var(--success);
+      }
+      .link-type-card.internal .live-example {
+        border-left-color: var(--primary);
+      }
+      .link-type-card.anchor .live-example {
+        border-left-color: var(--accent);
+      }
+      .link-type-card.functional .live-example {
+        border-left-color: var(--secondary);
+      }
+
+      .highlight {
+        background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .warning-box {
+        background: #fff7ed;
+        border-left: 5px solid var(--warning);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .info-box {
+        background: #eff6ff;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .tip-box {
+        background: #f0fdf4;
+        border-left: 5px solid var(--success);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .danger-box {
+        background: #fef2f2;
+        border-left: 5px solid var(--danger);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .attributes-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .attributes-table th {
+        background: var(--primary);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .attributes-table td {
+        padding: 15px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .attributes-table tr:hover {
+        background: #f8fafc;
+      }
+
+      .attr-name {
+        font-family: "Fira Code", monospace;
+        color: var(--secondary);
+        font-weight: 700;
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      .nav-demo {
+        background: var(--nav-bg);
+        border-radius: 16px;
+        padding: 30px;
+        margin: 25px 0;
+        color: white;
+      }
+
+      .nav-demo-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .nav-demo-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .nav-demo-menu {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+      }
+
+      .nav-demo-menu a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s;
+        position: relative;
+      }
+
+      .nav-demo-menu a:hover {
+        color: white;
+      }
+
+      .nav-demo-menu a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.3s;
+      }
+
+      .nav-demo-menu a:hover::after {
+        width: 100%;
+      }
+
+      .breadcrumb-demo {
+        background: #f8fafc;
+        padding: 15px 25px;
+        border-radius: 8px;
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .breadcrumb-item {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .breadcrumb-item:hover {
+        text-decoration: underline;
+      }
+
+      .breadcrumb-separator {
+        color: #94a3b8;
+      }
+
+      .breadcrumb-current {
+        color: #64748b;
+        font-weight: 600;
+      }
+
+      .pagination-demo {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        margin: 25px 0;
+      }
+
+      .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--dark);
+        background: white;
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s;
+        font-weight: 600;
+      }
+
+      .page-link:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .page-link.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--primary);
+        color: white;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 100;
+        transition: top 0.3s;
+      }
+
+      .skip-link:focus {
+        top: 0;
+      }
+
+      .visual-link-states {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+      }
+
+      .link-state-box {
+        flex: 1;
+        min-width: 200px;
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .link-state-box a {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      .link-state-box p {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: #64748b;
+      }
+
+      .state-link {
+        color: var(--link);
+      }
+      .state-visited {
+        color: var(--secondary);
+      }
+      .state-hover {
+        color: var(--link-hover);
+        text-decoration: none;
+      }
+      .state-active {
+        color: var(--danger);
+      }
+      .state-focus {
+        color: var(--link);
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        color: white;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 16px;
+        margin-top: 40px;
+      }
+
+      .doc-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin: 10px;
+      }
+
+      .doc-link:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+      }
+
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        z-index: 1000;
+        transition: width 0.3s;
+      }
+
+      .interactive-demo {
+        background: white;
+        border: 3px solid var(--primary);
+        border-radius: 16px;
+        padding: 30px;
+        margin: 25px 0;
+      }
+
+      .demo-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 10px;
+      }
+
+      .demo-tab {
+        background: none;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-weight: 600;
+        color: #64748b;
+        border-radius: 8px;
+        transition: all 0.3s;
+      }
+
+      .demo-tab.active {
+        background: var(--primary);
+        color: white;
+      }
+
+      .demo-content {
+        display: none;
+      }
+
+      .demo-content.active {
+        display: block;
+      }
+
+      .mega-menu-demo {
+        position: relative;
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .mega-menu-trigger {
+        background: var(--primary);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .mega-menu-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-top: 10px;
+        z-index: 10;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .mega-menu-demo:hover .mega-menu-content {
+        display: grid;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        main {
+          padding: 20px;
+        }
+        .link-types-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-demo-menu {
+          flex-direction: column;
+          gap: 15px;
+        }
+        .mega-menu-content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.6s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: #f0fdf4;
+        margin: 10px 0;
+        border-radius: 8px;
+        border-left: 4px solid var(--success);
+      }
+
+      .check-icon {
+        width: 24px;
+        height: 24px;
+        background: var(--success);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .link-preview {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin: 5px;
+      }
+
+      .link-preview.primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .link-preview.secondary {
+        background: white;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+
+      .link-preview.ghost {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid transparent;
+      }
+
+      .link-preview:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      }
+
+      .link-icon::after {
+        content: "→";
+        margin-left: 8px;
+        transition: transform 0.3s;
+        display: inline-block;
+      }
+
+      .link-icon:hover::after {
+        transform: translateX(4px);
+      }
+
+      .external-link::after {
+        content: "↗";
+        margin-left: 5px;
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="container">
+      <header>
+        <h1>🔗 Links e Navegação</h1>
+        <p class="subtitle">
+          Conecte páginas, crie menus acessíveis e domine a arte da navegação
+          web com HTML semântico
+        </p>
+      </header>
+
+      <nav class="nav-links">
+        <h3>📑 Navegação Rápida</h3>
+        <ul class="links-nav">
+          <li><a href="#introducao">Introdução</a></li>
+          <li><a href="#elemento-a">Elemento &lt;a&gt;</a></li>
+          <li><a href="#atributos">Atributos</a></li>
+          <li><a href="#tipos">Tipos de Links</a></li>
+          <li><a href="#navegacao">Menus</a></li>
+          <li><a href="#acessibilidade">Acessibilidade</a></li>
+          <li><a href="#seo">SEO</a></li>
+          <li><a href="#praticas">Boas Práticas</a></li>
+        </ul>
+      </nav>
+
+      <main id="main-content">
+        <section id="introducao" class="fade-in">
+          <h2 data-icon="🚀">O Poder dos Links</h2>
+
+          <div class="intro-box">
+            <p>
+              <strong>Links (hyperlinks)</strong> são a fundação da World Wide
+              Web. Eles transformam documentos estáticos em uma rede
+              interconectada de informações, permitindo que usuários naveguem
+              entre páginas, seções, arquivos e recursos digitais com um simples
+              clique ou toque.
+            </p>
+          </div>
+
+          <h3>Por que links bem estruturados importam?</h3>
+          <div class="link-types-grid">
+            <div class="link-type-card external">
+              <span class="link-badge">Navegação</span>
+              <div class="link-type-title">Usabilidade</div>
+              <p class="tag-description">
+                Links claros e bem posicionados reduzem a frustração do usuário
+                e aumentam o tempo de permanência no site.
+              </p>
+            </div>
+
+            <div class="link-type-card internal">
+              <span class="link-badge">SEO</span>
+              <div class="link-type-title">Indexação</div>
+              <p class="tag-description">
+                Google descobre páginas através de links. Uma estrutura de links
+                inteligente melhora o ranking.
+              </p>
+            </div>
+
+            <div class="link-type-card anchor">
+              <span class="link-badge">Acessibilidade</span>
+              <div class="link-type-title">Inclusão</div>
+              <p class="tag-description">
+                Leitores de tela dependem de links descritivos. "Clique aqui"
+                não significa nada fora de contexto.
+              </p>
+            </div>
+
+            <div class="link-type-card functional">
+              <span class="link-badge">Arquitetura</span>
+              <div class="link-type-title">Informação</div>
+              <p class="tag-description">
+                Links criam a hierarquia do site. Breadcrumbs e menus refletem a
+                estrutura organizacional.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <strong>💡 Fato Histórico:</strong> O conceito de hyperlink foi
+            criado por <strong>Ted Nelson</strong> em 1965, mas foi
+            <strong>Tim Berners-Lee</strong> quem implementou a tag
+            <code>&lt;a&gt;</code> (anchor/âncora) no HTML original em 1991,
+            dando origem à web como conhecemos.
+          </div>
+        </section>
+
+        <section id="elemento-a" class="fade-in">
+          <h2 data-icon="⚓">O Elemento &lt;a&gt; (Anchor)</h2>
+
+          <p>
+            A tag <code>&lt;a&gt;</code> cria hyperlinks. Seu nome vem de
+            "anchor" (âncora) porque conecta dois pontos na web: a origem (onde
+            o link está) e o destino (href).
+          </p>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Anatomia Básica do Link</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Estrutura mínima --&gt;
+&lt;a href="destino.html"&gt;Texto clicável&lt;/a&gt;
+
+&lt;!-- Link com atributos essenciais --&gt;
+&lt;a 
+  href="https://exemplo.com/pagina" 
+  title="Descrição detalhada (tooltip)"
+  class="link-principal"
+  id="link-unico"
+&gt;
+  Texto descritivo do link
+&lt;/a&gt;</code></pre>
+          </div>
+
+          <h3>Estados Visuais de um Link</h3>
+          <p>Links têm estados diferentes que devem ser estilizados em CSS:</p>
+
+          <div class="visual-link-states">
+            <div class="link-state-box">
+              <a href="#" class="state-link">:link</a>
+              <p>Estado padrão<br />(não visitado)</p>
+            </div>
+            <div class="link-state-box">
+              <a href="#" class="state-visited">:visited</a>
+              <p>Já visitado<br />(histórico do navegador)</p>
+            </div>
+            <div class="link-state-box">
+              <a href="#" class="state-hover">:hover</a>
+              <p>Mouse sobre<br />(interação)</p>
+            </div>
+            <div class="link-state-box">
+              <a href="#" class="state-active">:active</a>
+              <p>Clique ativo<br />(momento do click)</p>
+            </div>
+            <div class="link-state-box">
+              <a href="#" class="state-focus">:focus</a>
+              <p>Foco do teclado<br />(navegação Tab)</p>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">CSS para Todos os Estados</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>/* Ordem correta: LVHA (Lord Vader Hates Anakin) */
+a:link {
+  color: #2563eb;           /* Azul padrão */
+  text-decoration: none;    /* Remove sublinhado */
+}
+
+a:visited {
+  color: #7c3aed;           /* Roxo quando visitado */
+}
+
+a:hover {
+  color: #1d4ed8;           /* Azul escuro no hover */
+  text-decoration: underline;
+  transition: color 0.3s;   /* Transição suave */
+}
+
+a:active {
+  color: #dc2626;           /* Vermelho no click */
+  transform: scale(0.98);   /* Efeito de pressionado */
+}
+
+a:focus {
+  outline: 3px solid #f59e0b;  /* Anel laranja para acessibilidade */
+  outline-offset: 2px;
+  border-radius: 4px;
+}</code></pre>
+          </div>
+
+          <div class="warning-box">
+            <strong>⚠️ Ordem Importante:</strong> Em CSS, a ordem dos
+            pseudo-classes deve ser <code>:link</code> → <code>:visited</code> →
+            <code>:hover</code> → <code>:active</code> (LVHA). Se inverter,
+            alguns estados podem não funcionar corretamente devido à
+            especificidade CSS.
+          </div>
+        </section>
+
+        <section id="atributos" class="fade-in">
+          <h2 data-icon="🎛️">Atributos Essenciais</h2>
+
+          <h3>Atributos Principais de &lt;a&gt;</h3>
+          <table class="attributes-table">
+            <thead>
+              <tr>
+                <th>Atributo</th>
+                <th>Valor</th>
+                <th>Descrição</th>
+                <th>Obrigatório</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="attr-name">href</span></td>
+                <td>URL, #id, mailto:, tel:</td>
+                <td>Destino do link</td>
+                <td>✅ Sim (se ausente, link não funciona)</td>
+              </tr>
+              <tr>
+                <td><span class="attr-name">target</span></td>
+                <td>_self, _blank, _parent, _top</td>
+                <td>Onde abrir o destino</td>
+                <td>❌ Não (padrão: _self)</td>
+              </tr>
+              <tr>
+                <td><span class="attr-name">rel</span></td>
+                <td>noopener, noreferrer, nofollow, etc.</td>
+                <td>Relacionamento com destino</td>
+                <td>⚠️ Recomendado para _blank</td>
+              </tr>
+              <tr>
+                <td><span class="attr-name">title</span></td>
+                <td>Texto descritivo</td>
+                <td>Tooltip ao passar o mouse</td>
+                <td>❌ Não (use com moderação)</td>
+              </tr>
+              <tr>
+                <td><span class="attr-name">download</span></td>
+                <td>nome-arquivo.ext (opcional)</td>
+                <td>Força download em vez de navegação</td>
+                <td>❌ Não</td>
+              </tr>
+              <tr>
+                <td><span class="attr-name">hreflang</span></td>
+                <td>código idioma (pt-BR, en)</td>
+                <td>Idioma do documento destino</td>
+                <td>❌ Não</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Target: Onde Abrir o Link?</h3>
+          <div class="link-types-grid">
+            <div
+              class="structure-card"
+              style="border-top: 4px solid var(--primary)"
+            >
+              <div class="tag-name">_self</div>
+              <p class="tag-description">
+                Padrão. Abre na mesma aba/janela. Use para navegação interna.
+              </p>
+              <code>&lt;a href="pagina.html"&gt;Link&lt;/a&gt;</code>
+            </div>
+            <div
+              class="structure-card"
+              style="border-top: 4px solid var(--warning)"
+            >
+              <div class="tag-name">_blank</div>
+              <p class="tag-description">
+                Nova aba/janela. Use para links externos (sempre com
+                rel="noopener").
+              </p>
+              <code
+                >&lt;a href="..." target="_blank"
+                rel="noopener"&gt;Link&lt;/a&gt;</code
+              >
+            </div>
+            <div
+              class="structure-card"
+              style="border-top: 4px solid var(--secondary)"
+            >
+              <div class="tag-name">_parent</div>
+              <p class="tag-description">
+                Frame pai. Usado em iframes (raramente usado hoje).
+              </p>
+            </div>
+            <div
+              class="structure-card"
+              style="border-top: 4px solid var(--success)"
+            >
+              <div class="tag-name">_top</div>
+              <p class="tag-description">
+                Janela completa. Sai de todos os frames (legado).
+              </p>
+            </div>
+          </div>
+
+          <div class="danger-box">
+            <strong>🚨 Segurança Crítica:</strong> Sempre use
+            <code>rel="noopener noreferrer"</code> com
+            <code>target="_blank"</code>. Sem isso, a página destino pode
+            acessar <code>window.opener</code> e manipular sua página original
+            (ataque de tabnabbing).
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Link Externo Seguro (Padrão Ouro)</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- ✅ FORMA CORRETA E SEGURA --&gt;
+&lt;a 
+  href="https://externo.com" 
+  target="_blank" 
+  rel="noopener noreferrer"
+&gt;
+  Visitar site externo
+  &lt;span aria-hidden="true"&gt;↗&lt;/span&gt;
+&lt;/a&gt;
+
+&lt;!-- Explicação dos atributos rel: --&gt;
+&lt;!-- noopener: Impede acesso ao window.opener --&gt;
+&lt;!-- noreferrer: Não envia referrer header (privacidade) --&gt;
+&lt;!-- nofollow: Indica ao Google para não seguir (SEO) --&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="tipos" class="fade-in">
+          <h2 data-icon="🌐">Tipos de Links</h2>
+
+          <h3>1. Links Externos (Absolutos)</h3>
+          <div class="link-type-card external" style="margin: 20px 0">
+            <span class="link-badge">EXTERNO</span>
+            <div class="link-type-title">URL Completa</div>
+            <p class="tag-description">
+              Aponta para outro domínio. Sempre use protocolo (https://) e
+              atributos de segurança.
+            </p>
+
+            <div class="code-example" style="margin-top: 15px">
+              <pre><code>&lt;a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer"&gt;
+  MDN Web Docs ↗
+&lt;/a&gt;</code></pre>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-label">Resultado</div>
+              <a
+                href="https://developer.mozilla.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="color: var(--success); font-weight: 600"
+              >
+                MDN Web Docs ↗
+              </a>
+            </div>
+          </div>
+
+          <h3>2. Links Internos (Relativos)</h3>
+          <div class="link-type-card internal" style="margin: 20px 0">
+            <span class="link-badge">INTERNO</span>
+            <div class="link-type-title">Caminho Relativo</div>
+            <p class="tag-description">
+              Navegação dentro do mesmo site. Pode ser relativo ao arquivo atual
+              ou raiz.
+            </p>
+
+            <div class="code-example" style="margin-top: 15px">
+              <pre><code>&lt;!-- Mesma pasta --&gt;
+&lt;a href="sobre.html"&gt;Sobre&lt;/a&gt;
+
+&lt;!-- Subpasta --&gt;
+&lt;a href="produtos/categorias.html"&gt;Categorias&lt;/a&gt;
+
+&lt;!-- Pasta pai --&gt;
+&lt;a href="../index.html"&gt;Voltar&lt;/a&gt;
+
+&lt;!-- Raiz do site (recomendado) --&gt;
+&lt;a href="/contato"&gt;Contato&lt;/a&gt;
+
+&lt;!-- Mesma página (recarrega) --&gt;
+&lt;a href="./"&gt;Início&lt;/a&gt;</code></pre>
+            </div>
+          </div>
+
+          <h3>3. Âncoras (Hash Links)</h3>
+          <div class="link-type-card anchor" style="margin: 20px 0">
+            <span class="link-badge">ÂNCORA</span>
+            <div class="link-type-title">#id-elemento</div>
+            <p class="tag-description">
+              Navegação dentro da mesma página. Essencial para páginas longas e
+              menus fixos.
+            </p>
+
+            <div class="code-example" style="margin-top: 15px">
+              <pre><code>&lt;!-- Link para seção --&gt;
+&lt;a href="#secao-contato"&gt;Ir para Contato&lt;/a&gt;
+
+&lt;!-- Destino (qualquer elemento com id) --&gt;
+&lt;section id="secao-contato"&gt;
+  &lt;h2&gt;Contato&lt;/h2&gt;
+  &lt;!-- Conteúdo --&gt;
+&lt;/section&gt;
+
+&lt;!-- Link para topo (convenção comum) --&gt;
+&lt;a href="#"&gt;Voltar ao topo&lt;/a&gt;
+&lt;a href="#top"&gt;Voltar ao topo (melhor)&lt;/a&gt;</code></pre>
+            </div>
+
+            <div class="tip-box" style="margin-top: 15px">
+              <strong>💡 Smooth Scroll:</strong> Adicione
+              <code>scroll-behavior: smooth;</code> no CSS do html para animação
+              suave ao clicar em âncoras.
+            </div>
+          </div>
+
+          <h3>4. Links Funcionais (Especiais)</h3>
+          <div class="link-type-card functional" style="margin: 20px 0">
+            <span class="link-badge">FUNCIONAL</span>
+            <div class="link-type-title">mailto: | tel: | download</div>
+            <p class="tag-description">
+              Links que disparam ações do sistema operacional ou comportamentos
+              especiais.
+            </p>
+
+            <div class="code-example" style="margin-top: 15px">
+              <pre><code>&lt;!-- Email (abre cliente de email) --&gt;
+&lt;a href="mailto:contato@exemplo.com"&gt;Enviar email&lt;/a&gt;
+
+&lt;!-- Email com assunto e cc --&gt;
+&lt;a href="mailto:contato@exemplo.com?subject=Dúvida&amp;cc=gerencia@exemplo.com"&gt;
+  Email com assunto
+&lt;/a&gt;
+
+&lt;!-- Telefone (abre app de ligação no mobile) --&gt;
+&lt;a href="tel:+5511999999999"&gt;Ligar agora&lt;/a&gt;
+
+&lt;!-- WhatsApp direto --&gt;
+&lt;a href="https://wa.me/5511999999999"&gt;WhatsApp&lt;/a&gt;
+
+&lt;!-- Download de arquivo --&gt;
+&lt;a href="arquivo.pdf" download="relatorio-mensal.pdf"&gt;
+  Baixar PDF
+&lt;/a&gt;
+
+&lt;!-- JavaScript (use com moderação) --&gt;
+&lt;a href="javascript:void(0)" onclick="funcao()"&gt;Ação JS&lt;/a&gt;
+&lt;!-- Melhor: usar button para ações JS --&gt;</code></pre>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-label">Exemplos Funcionais</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px">
+                <a
+                  href="mailto:contato@exemplo.com"
+                  class="link-preview secondary"
+                  >📧 Email</a
+                >
+                <a href="tel:+5511999999999" class="link-preview secondary"
+                  >📞 Ligar</a
+                >
+                <a href="#" download class="link-preview secondary"
+                  >📥 Download</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="navegacao" class="fade-in">
+          <h2 data-icon="🧭">Estruturas de Navegação</h2>
+
+          <h3>Menu de Navegação Principal</h3>
+          <div class="nav-demo">
+            <div class="nav-demo-header">
+              <div class="nav-demo-logo">🚀 MeuSite</div>
+              <nav aria-label="Navegação principal">
+                <ul class="nav-demo-menu">
+                  <li><a href="#home">Home</a></li>
+                  <li><a href="#produtos">Produtos</a></li>
+                  <li><a href="#servicos">Serviços</a></li>
+                  <li><a href="#sobre">Sobre</a></li>
+                  <li><a href="#contato">Contato</a></li>
+                </ul>
+              </nav>
+            </div>
+            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem">
+              Estrutura semântica: &lt;nav&gt; → &lt;ul&gt; → &lt;li&gt; →
+              &lt;a&gt;
+            </p>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Código do Menu Semântico</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;nav aria-label="Navegação principal"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/" aria-current="page"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/produtos"&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/servicos"&gt;Serviços&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/contato"&gt;Contato&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- CSS para remover estilos de lista --&gt;
+&lt;style&gt;
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 30px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Indicador de página atual */
+  nav a[aria-current="page"] {
+    font-weight: bold;
+    border-bottom: 2px solid currentColor;
+  }
+&lt;/style&gt;</code></pre>
+          </div>
+
+          <h3>Breadcrumbs (Filo de Ariadne)</h3>
+          <div class="breadcrumb-demo">
+            <a href="#" class="breadcrumb-item">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="#" class="breadcrumb-item">Produtos</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="#" class="breadcrumb-item">Eletrônicos</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Notebooks</span>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Breadcrumbs Acessível</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      &lt;a href="/"&gt;Home&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="/produtos"&gt;Produtos&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="/produtos/eletronicos"&gt;Eletrônicos&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li aria-current="page"&gt;
+      Notebooks
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+
+&lt;!-- Esconder separadores visualmente, mas não para leitores de tela --&gt;
+&lt;style&gt;
+  .separator {
+    margin: 0 10px;
+    color: #94a3b8;
+  }
+  
+  /* Esconde o último separador */
+  li:last-child .separator {
+    display: none;
+  }
+&lt;/style&gt;</code></pre>
+          </div>
+
+          <h3>Paginação</h3>
+          <div class="pagination-demo">
+            <a href="#" class="page-link">←</a>
+            <a href="#" class="page-link">1</a>
+            <a href="#" class="page-link active" aria-current="page">2</a>
+            <a href="#" class="page-link">3</a>
+            <span style="padding: 10px">...</span>
+            <a href="#" class="page-link">10</a>
+            <a href="#" class="page-link">→</a>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Paginação Semântica</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;nav aria-label="Paginação"&gt;
+  &lt;ul style="display: flex; gap: 5px; list-style: none;"&gt;
+    &lt;li&gt;
+      &lt;a href="?page=1" class="page-link"&gt;← Anterior&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="?page=1" class="page-link"&gt;1&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="?page=2" class="page-link" aria-current="page"&gt;2&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span aria-label="Página atual"&gt;...&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="?page=10" class="page-link"&gt;10&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+
+          <h3>Mega Menu (Menu Expandido)</h3>
+          <div class="mega-menu-demo">
+            <a href="#" class="mega-menu-trigger">Produtos ▼</a>
+            <div class="mega-menu-content">
+              <div>
+                <h4>Eletrônicos</h4>
+                <ul style="list-style: none; padding: 0">
+                  <li><a href="#">Notebooks</a></li>
+                  <li><a href="#">Smartphones</a></li>
+                  <li><a href="#">Tablets</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4>Periféricos</h4>
+                <ul style="list-style: none; padding: 0">
+                  <li><a href="#">Teclados</a></li>
+                  <li><a href="#">Mouses</a></li>
+                  <li><a href="#">Monitores</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4>Acessórios</h4>
+                <ul style="list-style: none; padding: 0">
+                  <li><a href="#">Mochilas</a></li>
+                  <li><a href="#">Hubs USB</a></li>
+                  <li><a href="#">Webcams</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="acessibilidade" class="fade-in">
+          <h2 data-icon="♿">Acessibilidade em Links</h2>
+
+          <h3>Texto de Link Descritivo</h3>
+          <div
+            class="comparison-grid"
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 20px;
+              margin: 20px 0;
+            "
+          >
+            <div
+              style="
+                background: #fef2f2;
+                padding: 20px;
+                border-radius: 12px;
+                border-left: 4px solid var(--danger);
+              "
+            >
+              <h4 style="color: var(--danger); margin-bottom: 15px">
+                ❌ Evite
+              </h4>
+              <p><a href="#">Clique aqui</a> para ver mais.</p>
+              <p><a href="#">Leia mais</a></p>
+              <p><a href="#">Link</a></p>
+              <small style="color: #64748b"
+                >Leitores de tela leem links fora de contexto. "Clique aqui" não
+                significa nada.</small
+              >
+            </div>
+            <div
+              style="
+                background: #f0fdf4;
+                padding: 20px;
+                border-radius: 12px;
+                border-left: 4px solid var(--success);
+              "
+            >
+              <h4 style="color: var(--success); margin-bottom: 15px">
+                ✅ Prefira
+              </h4>
+              <p><a href="#">Veja nossa galeria de produtos</a></p>
+              <p><a href="#">Leia mais sobre acessibilidade web</a></p>
+              <p><a href="#">Baixar relatório anual (PDF, 2MB)</a></p>
+              <small style="color: #64748b"
+                >Texto descritivo informa destino e contexto mesmo
+                isolado.</small
+              >
+            </div>
+          </div>
+
+          <h3>Skip Links (Pular Navegação)</h3>
+          <div class="info-box">
+            <strong>🎯 Funcionalidade:</strong> Links invisíveis que aparecem ao
+            pressionar Tab, permitindo usuários de teclado pularem menus
+            repetitivos e irem direto ao conteúdo.
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Implementação de Skip Link</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- No topo do body, primeiro elemento focável --&gt;
+&lt;a href="#main-content" class="skip-link"&gt;
+  Pular para conteúdo principal
+&lt;/a&gt;
+
+&lt;nav&gt;...menu complexo...&lt;/nav&gt;
+
+&lt;!-- Destino do skip link --&gt;
+&lt;main id="main-content"&gt;
+  &lt;h1&gt;Título da Página&lt;/h1&gt;
+  &lt;!-- Conteúdo principal --&gt;
+&lt;/main&gt;
+
+&lt;style&gt;
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+  }
+  
+  .skip-link:focus {
+    top: 0; /* Aparece quando recebe foco do teclado */
+  }
+&lt;/style&gt;</code></pre>
+          </div>
+
+          <h3>Indicadores de Estado</h3>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>
+              Use <code>aria-current="page"</code> no link da página atual
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>
+              Adicione <code>aria-label</code> para links com ícones sem texto
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>Informe formato e tamanho de arquivos para download</div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>Use <code>aria-expanded</code> em menus dropdown</div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>Mantenha foco visível (:focus) com estilo claro</div>
+          </div>
+        </section>
+
+        <section id="seo" class="fade-in">
+          <h2 data-icon="🔍">SEO e Links</h2>
+
+          <h3>Como o Google Interpreta Links</h3>
+          <div class="link-types-grid">
+            <div
+              class="structure-card"
+              style="border-top: 4px solid var(--success)"
+            >
+              <div class="tag-name">Link Juice</div>
+              <p class="tag-description">
+                Google transfere autoridade (PageRank) através de links. Links
+                internos estratégicos distribuem autoridade entre páginas.
+              </p>
+            </div>
+            <div
+              class="structure-card"
+              style="border-top: 4px solid var(--primary)"
+            >
+              <div class="tag-name">Anchor Text</div>
+              <p class="tag-description">
+                O texto do link é um forte sinal de relevância. "Clique aqui"
+                desperdiça oportunidade de SEO.
+              </p>
+            </div>
+            <div
+              class="structure-card"
+              style="border-top: 4px solid var(--warning)"
+            >
+              <div class="tag-name">Crawl Budget</div>
+              <p class="tag-description">
+                Googlebot segue links para descobrir páginas. Links quebrados ou
+                orfãs impedem indexação.
+              </p>
+            </div>
+          </div>
+
+          <h3>Atributos Rel para SEO</h3>
+          <table class="attributes-table">
+            <thead>
+              <tr>
+                <th>Valor</th>
+                <th>Uso</th>
+                <th>Efeito SEO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="attr-name">nofollow</span></td>
+                <td>Links não endossados (comentários, ads)</td>
+                <td>Não passa autoridade; Google não segue</td>
+              </tr>
+              <tr>
+                <td><span class="attr-name">sponsored</span></td>
+                <td>Publicidade e patrocinados</td>
+                <td>Identifica link pago (obrigatório desde 2019)</td>
+              </tr>
+              <tr>
+                <td><span class="attr-name">ugc</span></td>
+                <td>User Generated Content (fóruns, comentários)</td>
+                <td>Indica conteúdo de usuários</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Links com Atributos SEO Modernos</span>
+            </div>
+            <pre><code>&lt;!-- Link patrocinado (obrigatório por lei em muitos países) --&gt;
+&lt;a href="https://parceiro.com" rel="sponsored"&gt;
+  Oferta Especial Parceiro
+&lt;/a&gt;
+
+&lt;!-- Comentário de usuário (não endossado pelo site) --&gt;
+&lt;a href="https://site-externo.com" rel="ugc nofollow"&gt;
+  Site recomendado por usuário
+&lt;/a&gt;
+
+&lt;!-- Link normal de confiança --&gt;
+&lt;a href="https://autoridade.com"&gt;
+  Fonte confiável
+&lt;/a&gt;</code></pre>
+          </div>
+
+          <div class="tip-box">
+            <strong>💡 Dica de Link Building:</strong> Crie uma estratégia de
+            links internos ligando conteúdos relacionados. Isso cria "topic
+            clusters" que Google entende como autoridade temática.
+          </div>
+        </section>
+
+        <section id="praticas" class="fade-in">
+          <h2 data-icon="✅">Boas Práticas e Padrões</h2>
+
+          <h3>Checklist de Links</h3>
+          <div
+            style="
+              background: #f8fafc;
+              padding: 25px;
+              border-radius: 12px;
+              margin: 20px 0;
+            "
+          >
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>
+                Todos os links externos têm
+                <code>target="_blank" rel="noopener noreferrer"</code>
+              </div>
+            </div>
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>Texto do link é descritivo (evita "clique aqui")</div>
+            </div>
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>Links de download indicam formato e tamanho</div>
+            </div>
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>Foco do teclado (:focus) é visível e estilizado</div>
+            </div>
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>Menu principal usa &lt;nav&gt; com aria-label</div>
+            </div>
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>Skip link no topo da página</div>
+            </div>
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>
+                Página atual indicada com <code>aria-current="page"</code>
+              </div>
+            </div>
+            <div class="checklist-item" style="background: white">
+              <div class="check-icon">✓</div>
+              <div>Links visitados (:visited) têm estilo distinto</div>
+            </div>
+          </div>
+
+          <h3>Estilos de Botão vs Link</h3>
+          <div style="text-align: center; margin: 30px 0">
+            <a href="#" class="link-preview primary link-icon">Primário</a>
+            <a href="#" class="link-preview secondary">Secundário</a>
+            <a href="#" class="link-preview ghost">Fantasma</a>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Sistema de Botões com &lt;a&gt;</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Quando usar &lt;a&gt; vs &lt;button&gt;: --&gt;
+&lt;!-- Use &lt;a&gt; para: Navegação para outra página/seção --&gt;
+&lt;!-- Use &lt;button&gt; para: Ações na página atual (submit, modal, etc.) --&gt;
+
+&lt;style&gt;
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+  }
+  
+  .btn-secondary {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+  }
+  
+  .btn-ghost {
+    background: transparent;
+    color: var(--primary);
+  }
+  
+  /* Ícone com animação */
+  .btn-icon::after {
+    content: '→';
+    transition: transform 0.3s;
+  }
+  
+  .btn-icon:hover::after {
+    transform: translateX(4px);
+  }
+&lt;/style&gt;</code></pre>
+          </div>
+
+          <div class="warning-box">
+            <strong>⚠️ Erro Comum:</strong> Nunca estilize um
+            <code>&lt;button&gt;</code> para parecer um link ou vice-versa. Isso
+            confunde usuários de teclado (Enter vs Space) e leitores de tela.
+            Use o elemento semântico correto para a função.
+          </div>
+        </section>
+
+        <section id="referencias" class="fade-in">
+          <h2 data-icon="📚">Referências e Documentação</h2>
+
+          <div style="text-align: center; margin: 30px 0">
+            <a
+              href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/a"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              📖 MDN - Elemento &lt;a&gt;
+            </a>
+            <a
+              href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/nav"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              🧭 MDN - Elemento &lt;nav&gt;
+            </a>
+            <a
+              href="https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              ♿ WCAG - Propósito de Links
+            </a>
+            <a
+              href="https://developers.google.com/search/docs/advanced/guidelines/links-crawlable"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              🔍 Google - Links Rastreáveis
+            </a>
+          </div>
+
+          <div class="info-box">
+            <strong>🚀 Próximos Passos:</strong>
+            <ol style="margin-left: 20px; margin-top: 10px">
+              <li>
+                Audit todos os links do seu site com
+                <a
+                  href="https://www.deadlinkchecker.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >Dead Link Checker</a
+                >
+              </li>
+              <li>Implemente skip links em todas as páginas</li>
+              <li>Crie um sistema de navegação breadcrumb dinâmico</li>
+              <li>
+                Estude WAI-ARIA para menus complexos (aria-expanded,
+                aria-haspopup)
+              </li>
+              <li>
+                Teste navegação por teclado (Tab, Shift+Tab, Enter, Space)
+              </li>
+            </ol>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p style="font-size: 1.2rem; margin-bottom: 10px">
+          🚀 Parte 4 da Série HTML
+        </p>
+        <p>Links e Navegação • Guia Completo</p>
+        <p style="margin-top: 15px; opacity: 0.8; font-size: 0.9rem">
+          Conecte o mundo, uma âncora de cada vez.
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Barra de progresso de leitura
+      window.addEventListener("scroll", () => {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+      });
+
+      // Função de copiar código
+      function copyCode(btn) {
+        const codeBlock = btn.closest(".code-example").querySelector("code");
+        const text = codeBlock.innerText;
+
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = "Copiado!";
+          btn.style.background = "var(--success)";
+
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "rgba(255,255,255,0.1)";
+          }, 2000);
+        });
+      }
+
+      // Animação suave ao clicar nos links de navegação
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Revelar elementos ao scrollar
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("section").forEach((section) => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "all 0.6s ease-out";
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1339 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guia Completo: Tags Textuais HTML</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #7c3aed;
+        --accent: #f59e0b;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --code-bg: #0f172a;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+      }
+
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        padding: 60px 20px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 20px 20px;
+        animation: moveGrid 20s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes moveGrid {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(20px, 20px);
+        }
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .nav-tags {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 16px;
+        margin: 30px 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 20px;
+        z-index: 100;
+      }
+
+      .nav-tags h3 {
+        margin-bottom: 15px;
+        color: var(--primary);
+        font-size: 1.1rem;
+      }
+
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
+      }
+
+      .tag-list a {
+        text-decoration: none;
+        background: var(--light);
+        color: var(--dark);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .tag-list a:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      }
+
+      main {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+      }
+
+      section {
+        margin-bottom: 60px;
+        scroll-margin-top: 120px;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      h2::before {
+        content: attr(data-icon);
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        color: var(--secondary);
+        margin: 30px 0 15px;
+      }
+
+      p {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .intro-box {
+        background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        padding: 30px;
+        border-radius: 16px;
+        margin: 30px 0;
+        border-left: 5px solid var(--primary);
+      }
+
+      .code-example {
+        background: var(--code-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 25px 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .code-header {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .code-title {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .copy-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .copy-btn:hover {
+        background: var(--primary);
+      }
+
+      pre {
+        padding: 25px;
+        overflow-x: auto;
+        color: #e2e8f0;
+        font-family: "Fira Code", "Consolas", monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      code {
+        font-family: "Fira Code", "Consolas", monospace;
+      }
+
+      .preview-box {
+        background: #f1f5f9;
+        border: 2px dashed #cbd5e1;
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 15px;
+      }
+
+      .preview-label {
+        font-size: 0.85rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .tag-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+
+      .tag-card {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tag-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+
+      .tag-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+      }
+
+      .tag-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .tag-name {
+        font-family: "Fira Code", monospace;
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin-bottom: 10px;
+        background: #eff6ff;
+        padding: 5px 10px;
+        border-radius: 6px;
+        display: inline-block;
+      }
+
+      .tag-description {
+        color: #475569;
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+      }
+
+      .live-example {
+        background: #f8fafc;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 3px solid var(--accent);
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .comparison-table th {
+        background: var(--primary);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .comparison-table td {
+        padding: 15px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .comparison-table tr:hover {
+        background: #f8fafc;
+      }
+
+      .highlight {
+        background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .warning-box {
+        background: #fff7ed;
+        border-left: 5px solid var(--warning);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .info-box {
+        background: #eff6ff;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .tip-box {
+        background: #f0fdf4;
+        border-left: 5px solid var(--success);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .attributes-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .attributes-list li {
+        background: #f8fafc;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border-left: 3px solid var(--secondary);
+      }
+
+      .attr-name {
+        font-family: "Fira Code", monospace;
+        color: var(--secondary);
+        font-weight: 700;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        color: white;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 16px;
+        margin-top: 40px;
+      }
+
+      .doc-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin: 10px;
+      }
+
+      .doc-link:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+      }
+
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        z-index: 1000;
+        transition: width 0.3s;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        main {
+          padding: 20px;
+        }
+        .tag-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Animações para exemplos */
+      .fade-in {
+        animation: fadeIn 0.6s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="container">
+      <header>
+        <h1>🎯 Tags Textuais HTML</h1>
+        <p class="subtitle">
+          Guia completo e interativo para dominar a semântica e formatação de
+          textos na web
+        </p>
+      </header>
+
+      <nav class="nav-tags">
+        <h3>📑 Navegação Rápida</h3>
+        <ul class="tag-list">
+          <li><a href="#introducao">Introdução</a></li>
+          <li><a href="#titulos">Títulos</a></li>
+          <li><a href="#paragrafos">Parágrafos</a></li>
+          <li><a href="#formatacao">Formatação</a></li>
+          <li><a href="#semantica">Semântica</a></li>
+          <li><a href="#listas">Listas</a></li>
+          <li><a href="#links">Links</a></li>
+          <li><a href="#citacoes">Citações</a></li>
+          <li><a href="#codigo">Código</a></li>
+          <li><a href="#referencias">Referências</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <section id="introducao" class="fade-in">
+          <h2 data-icon="🚀">Introdução</h2>
+
+          <div class="intro-box">
+            <p>
+              <strong>HTML (HyperText Markup Language)</strong> é a linguagem de
+              marcação padrão para criar páginas web. As
+              <span class="highlight">tags textuais</span> são elementos
+              fundamentais que dão estrutura e significado ao conteúdo escrito,
+              permitindo que navegadores interpretem e exibam informações de
+              forma organizada e acessível.
+            </p>
+          </div>
+
+          <h3>Por que aprender tags textuais?</h3>
+          <ul style="margin-left: 20px; font-size: 1.1rem; line-height: 2">
+            <li>
+              📚 <strong>Estruturação:</strong> Organize conteúdo de forma
+              hierárquica e lógica
+            </li>
+            <li>
+              ♿ <strong>Acessibilidade:</strong> Torne seu site utilizável por
+              leitores de tela
+            </li>
+            <li>
+              🔍 <strong>SEO:</strong> Melhore o posicionamento nos mecanismos
+              de busca
+            </li>
+            <li>
+              📱 <strong>Responsividade:</strong> Garanta compatibilidade com
+              diferentes dispositivos
+            </li>
+            <li>
+              🎨 <strong>Estilização:</strong> Base para aplicação de CSS e
+              JavaScript
+            </li>
+          </ul>
+
+          <div class="info-box">
+            <strong>💡 Dica Pro:</strong> Sempre prefira tags semânticas (como
+            <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>) em vez
+            de genéricas (<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>)
+            quando possível. Isso melhora a acessibilidade e o SEO do seu site.
+          </div>
+        </section>
+
+        <section id="titulos" class="fade-in">
+          <h2 data-icon="📰">Títulos e Cabeçalhos</h2>
+
+          <p>
+            Os elementos de cabeçalho (<code>&lt;h1&gt;</code> a
+            <code>&lt;h6&gt;</code>) representam seis níveis de títulos, sendo
+            <code>&lt;h1&gt;</code> o mais importante e
+            <code>&lt;h6&gt;</code> o menos importante. Eles são cruciais para a
+            estrutura do documento e SEO.
+          </p>
+
+          <div class="warning-box">
+            <strong>⚠️ Importante:</strong> Use apenas um
+            <code>&lt;h1&gt;</code> por página e mantenha a hierarquia
+            sequencial (não pule de h2 para h4, por exemplo).
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">HTML - Estrutura de Títulos</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;h1&gt;Título Principal da Página&lt;/h1&gt;
+&lt;h2&gt;Seção Importante&lt;/h2&gt;
+&lt;h3&gt;Subseção Específica&lt;/h3&gt;
+&lt;h4&gt;Tópico Detalhado&lt;/h4&gt;
+&lt;h5&gt;Subtópico&lt;/h5&gt;
+&lt;h6&gt;Nota de Rodapé&lt;/h6&gt;</code></pre>
+          </div>
+
+          <div class="preview-box">
+            <div class="preview-label">Resultado Visual</div>
+            <h1 style="font-size: 2em; margin: 10px 0">
+              Título Principal da Página (h1)
+            </h1>
+            <h2 style="font-size: 1.5em; margin: 10px 0">
+              Seção Importante (h2)
+            </h2>
+            <h3 style="font-size: 1.17em; margin: 10px 0">
+              Subseção Específica (h3)
+            </h3>
+            <h4 style="font-size: 1em; margin: 10px 0">
+              Tópico Detalhado (h4)
+            </h4>
+            <h5 style="font-size: 0.83em; margin: 10px 0">Subtópico (h5)</h5>
+            <h6 style="font-size: 0.67em; margin: 10px 0">
+              Nota de Rodapé (h6)
+            </h6>
+          </div>
+
+          <h3>Atributos Globais Relevantes</h3>
+          <ul class="attributes-list">
+            <li>
+              <span class="attr-name">id</span> - Identificador único para
+              navegação e CSS/JS
+            </li>
+            <li>
+              <span class="attr-name">class</span> - Classes para estilização em
+              grupo
+            </li>
+            <li>
+              <span class="attr-name">style</span> - Estilos inline (evite usar,
+              prefira CSS externo)
+            </li>
+          </ul>
+        </section>
+
+        <section id="paragrafos" class="fade-in">
+          <h2 data-icon="📝">Parágrafos e Texto Básico</h2>
+
+          <div class="tag-grid">
+            <div class="tag-card">
+              <div class="tag-name">&lt;p&gt;</div>
+              <p class="tag-description">
+                Define um parágrafo de texto. Adiciona espaçamento automático
+                antes e depois.
+              </p>
+              <div class="live-example">
+                <p>Este é um parágrafo exemplo.</p>
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;br&gt;</div>
+              <p class="tag-description">
+                Quebra de linha simples. Use com moderação, prefira CSS para
+                espaçamento.
+              </p>
+              <div class="live-example">Linha 1<br />Linha 2</div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;hr&gt;</div>
+              <p class="tag-description">
+                Linha horizontal temática. Separação de conteúdo ou mudança de
+                tema.
+              </p>
+              <div class="live-example">
+                Tema A
+                <hr style="margin: 10px 0" />
+                Tema B
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;span&gt;</div>
+              <p class="tag-description">
+                Container inline genérico. Usado para estilizar partes
+                específicas do texto.
+              </p>
+              <div class="live-example">
+                Texto normal e
+                <span style="color: var(--primary); font-weight: bold"
+                  >texto destacado</span
+                >.
+              </div>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Exemplo Prático</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;p&gt;Este é um parágrafo com &lt;strong&gt;ênfase&lt;/strong&gt; e 
+&lt;span style="color: blue;"&gt;estilo inline&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;Podemos forçar uma quebra&lt;br&gt;de linha quando necessário.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Nova seção após a linha divisória.&lt;/p&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="formatacao" class="fade-in">
+          <h2 data-icon="✨">Formatação de Texto</h2>
+
+          <p>
+            Tags de formatação podem ser divididas em
+            <strong>visuais</strong> (apenas aparência) e
+            <strong>semânticas</strong> (significado + aparência). Sempre
+            prefira as semânticas!
+          </p>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Tag Visual (Evitar)</th>
+                <th>Tag Semântica (Preferir)</th>
+                <th>Uso Correto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;b&gt;</code> - Negrito</td>
+                <td><code>&lt;strong&gt;</code> - Importância</td>
+                <td>Alertas, avisos críticos</td>
+              </tr>
+              <tr>
+                <td><code>&lt;i&gt;</code> - Itálico</td>
+                <td><code>&lt;em&gt;</code> - Ênfase</td>
+                <td>Destaque em frases</td>
+              </tr>
+              <tr>
+                <td><code>&lt;u&gt;</code> - Sublinhado</td>
+                <td><code>&lt;ins&gt;</code> - Inserção</td>
+                <td>Texto adicionado/editado</td>
+              </tr>
+              <tr>
+                <td><code>&lt;s&gt;</code> - Tachado</td>
+                <td><code>&lt;del&gt;</code> - Remoção</td>
+                <td>Texto removido/obsoleto</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Exemplos de Uso</h3>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Formatação Semântica</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Ênfase e Importância --&gt;
+&lt;p&gt;Você &lt;em&gt;deve&lt;/em&gt; ler isto. É &lt;strong&gt;urgente&lt;/strong&gt;!&lt;/p&gt;
+
+&lt;!-- Marcações de Edição --&gt;
+&lt;p&gt;Preço: &lt;del&gt;R$ 100,00&lt;/del&gt; &lt;ins&gt;R$ 79,90&lt;/ins&gt;&lt;/p&gt;
+
+&lt;!-- Sobrescrito e Subscrito --&gt;
+&lt;p&gt;Fórmula: H&lt;sub&gt;2&lt;/sub&gt;O | Matemática: E=mc&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
+
+&lt;!-- Destaque e Código --&gt;
+&lt;p&gt;Use o comando &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;S&lt;/kbd&gt; para salvar.&lt;/p&gt;
+
+&lt;!-- Pequeno e Marcação --&gt;
+&lt;p&gt;&lt;small&gt;Copyright 2024&lt;/small&gt; | 
+&lt;mark&gt;Texto destacado&lt;/mark&gt;&lt;/p&gt;</code></pre>
+          </div>
+
+          <div class="preview-box">
+            <div class="preview-label">Resultado Visual</div>
+            <p>Você <em>deve</em> ler isto. É <strong>urgente</strong>!</p>
+            <p>Preço: <del>R$ 100,00</del> <ins>R$ 79,90</ins></p>
+            <p>Fórmula: H<sub>2</sub>O | Matemática: E=mc<sup>2</sup></p>
+            <p>
+              Use o comando
+              <kbd
+                style="
+                  background: #eee;
+                  padding: 2px 6px;
+                  border-radius: 4px;
+                  border: 1px solid #ccc;
+                "
+                >Ctrl</kbd
+              >
+              +
+              <kbd
+                style="
+                  background: #eee;
+                  padding: 2px 6px;
+                  border-radius: 4px;
+                  border: 1px solid #ccc;
+                "
+                >S</kbd
+              >
+              para salvar.
+            </p>
+            <p><small>Copyright 2024</small> | <mark>Texto destacado</mark></p>
+          </div>
+
+          <div class="tip-box">
+            <strong>✅ Boas Práticas:</strong> Use
+            <code>&lt;mark&gt;</code> para destacar resultados de busca,
+            <code>&lt;kbd&gt;</code> para atalhos de teclado, e
+            <code>&lt;samp&gt;</code> para saídas de programas.
+          </div>
+        </section>
+
+        <section id="semantica" class="fade-in">
+          <h2 data-icon="🏗️">Tags Semânticas de Texto</h2>
+
+          <p>
+            HTML5 introduziu tags que dão significado ao conteúdo, melhorando
+            acessibilidade e SEO:
+          </p>
+
+          <div class="tag-grid">
+            <div class="tag-card">
+              <div class="tag-name">&lt;abbr&gt;</div>
+              <p class="tag-description">
+                Abreviações e acrônimos. Use o atributo <code>title</code> para
+                o significado completo.
+              </p>
+              <div class="live-example">
+                <abbr title="HyperText Markup Language">HTML</abbr> é uma
+                linguagem de marcação.
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;address&gt;</div>
+              <p class="tag-description">
+                Informações de contato/autoria. Geralmente renderiza em itálico.
+              </p>
+              <div class="live-example">
+                <address>
+                  Escrito por João Silva.<br />Visite-nos em: exemplo.com
+                </address>
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;time&gt;</div>
+              <p class="tag-description">
+                Representa datas/horários. Atributo <code>datetime</code> para
+                máquinas.
+              </p>
+              <div class="live-example">
+                Evento em <time datetime="2024-12-25">25 de Dezembro</time>.
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;dfn&gt;</div>
+              <p class="tag-description">
+                Definição de termo. Indica a primeira definição de um conceito.
+              </p>
+              <div class="live-example">
+                <dfn>HTML</dfn> é a linguagem padrão da web.
+              </div>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Exemplo Completo de Semântica</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Novo Padrão Web&lt;/h1&gt;
+    &lt;p&gt;Publicado em &lt;time datetime="2024-01-15"&gt;15 de Janeiro&lt;/time&gt;&lt;/p&gt;
+  &lt;/header&gt;
+  
+  &lt;p&gt;A &lt;dfn&gt;&lt;abbr title="Cascading Style Sheets"&gt;CSS&lt;/abbr&gt;&lt;/dfn&gt; 
+  é usada para estilizar documentos.&lt;/p&gt;
+  
+  &lt;address&gt;
+    Autor: Maria Developer&lt;br&gt;
+    Email: maria@exemplo.com
+  &lt;/address&gt;
+&lt;/article&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="listas" class="fade-in">
+          <h2 data-icon="📋">Listas</h2>
+
+          <p>
+            Listas organizam itens relacionados. Existem três tipos principais:
+          </p>
+
+          <div class="tag-grid">
+            <div class="tag-card">
+              <div class="tag-name">&lt;ul&gt; + &lt;li&gt;</div>
+              <p class="tag-description">
+                Lista não ordenada (bullets). Use para itens sem sequência
+                específica.
+              </p>
+              <div class="live-example">
+                <ul style="margin-left: 20px">
+                  <li>Item A</li>
+                  <li>Item B</li>
+                  <li>Item C</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;ol&gt; + &lt;li&gt;</div>
+              <p class="tag-description">
+                Lista ordenada (numerada). Use para procedimentos ou rankings.
+              </p>
+              <div class="live-example">
+                <ol style="margin-left: 20px">
+                  <li>Primeiro passo</li>
+                  <li>Segundo passo</li>
+                  <li>Terceiro passo</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;dl&gt; + &lt;dt&gt; + &lt;dd&gt;</div>
+              <p class="tag-description">
+                Lista de definições. Termo (dt) e descrição (dd).
+              </p>
+              <div class="live-example">
+                <dl>
+                  <dt>HTML</dt>
+                  <dd>Linguagem de marcação</dd>
+                  <dt>CSS</dt>
+                  <dd>Linguagem de estilos</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+          <h3>Atributos Especiais de &lt;ol&gt;</h3>
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Lista Ordenada Avançada</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- type: 1, A, a, I, i --&gt;
+&lt;ol type="I" start="5"&gt;
+  &lt;li&gt;Item V&lt;/li&gt;
+  &lt;li value="10"&gt;Item X (forçado)&lt;/li&gt;
+  &lt;li&gt;Item XI (continua)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Lista reversa --&gt;
+&lt;ol reversed&gt;
+  &lt;li&gt;Top 3&lt;/li&gt;
+  &lt;li&gt;Top 2&lt;/li&gt;
+  &lt;li&gt;Top 1&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+          </div>
+
+          <div class="preview-box">
+            <div class="preview-label">Resultado: Lista Reversa</div>
+            <ol reversed style="margin-left: 20px">
+              <li>Top 3</li>
+              <li>Top 2</li>
+              <li>Top 1</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="links" class="fade-in">
+          <h2 data-icon="🔗">Links e Âncoras</h2>
+
+          <p>
+            A tag <code>&lt;a&gt;</code> (âncora) cria hyperlinks, elemento
+            fundamental da web.
+          </p>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Tipos de Links</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Link externo --&gt;
+&lt;a href="https://developer.mozilla.org" target="_blank" rel="noopener"&gt;
+  MDN Web Docs
+&lt;/a&gt;
+
+&lt;!-- Link interno/âncora --&gt;
+&lt;a href="#secao-contato"&gt;Ir para Contato&lt;/a&gt;
+
+&lt;!-- Link de email --&gt;
+&lt;a href="mailto:contato@exemplo.com?subject=Dúvida"&gt;
+  Enviar email
+&lt;/a&gt;
+
+&lt;!-- Link de telefone --&gt;
+&lt;a href="tel:+5511999999999"&gt;Ligar agora&lt;/a&gt;
+
+&lt;!-- Download --&gt;
+&lt;a href="arquivo.pdf" download="guia.pdf"&gt;
+  Baixar PDF
+&lt;/a&gt;</code></pre>
+          </div>
+
+          <h3>Atributos Importantes</h3>
+          <ul class="attributes-list">
+            <li>
+              <span class="attr-name">href</span> - URL de destino (obrigatório)
+            </li>
+            <li>
+              <span class="attr-name">target="_blank"</span> - Abre em nova aba
+              (sempre use com <code>rel="noopener"</code>)
+            </li>
+            <li>
+              <span class="attr-name">rel</span> - Relacionamento (nofollow,
+              noopener, noreferrer)
+            </li>
+            <li>
+              <span class="attr-name">download</span> - Força download em vez de
+              navegação
+            </li>
+            <li>
+              <span class="attr-name">title</span> - Tooltip ao passar o mouse
+            </li>
+          </ul>
+
+          <div class="warning-box">
+            <strong>🔒 Segurança:</strong> Sempre adicione
+            <code>rel="noopener noreferrer"</code> em links
+            <code>target="_blank"</code> para evitar vulnerabilidades de
+            tabnabbing.
+          </div>
+        </section>
+
+        <section id="citacoes" class="fade-in">
+          <h2 data-icon="💬">Citações</h2>
+
+          <div class="tag-grid">
+            <div class="tag-card">
+              <div class="tag-name">&lt;blockquote&gt;</div>
+              <p class="tag-description">
+                Citação em bloco (longa). Geralmente com recuo e itálico.
+              </p>
+              <div class="live-example">
+                <blockquote
+                  style="
+                    border-left: 3px solid var(--primary);
+                    padding-left: 15px;
+                    font-style: italic;
+                    margin: 10px 0;
+                  "
+                >
+                  "A web é mais uma criação social do que técnica." — Tim
+                  Berners-Lee
+                </blockquote>
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;q&gt;</div>
+              <p class="tag-description">
+                Citação inline (curta). Adiciona aspas automaticamente.
+              </p>
+              <div class="live-example">
+                Ele disse <q>HTML é fascinante</q> durante a aula.
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;cite&gt;</div>
+              <p class="tag-description">
+                Referência à obra citada (título, autor, URL).
+              </p>
+              <div class="live-example">
+                <cite>O Senhor dos Anéis</cite> por J.R.R. Tolkien.
+              </div>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Exemplo de Citação Completa</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;figure&gt;
+  &lt;blockquote cite="https://developer.mozilla.org"&gt;
+    &lt;p&gt;O HTML (HyperText Markup Language) é o bloco de construção 
+    mais básico da web.&lt;/p&gt;
+  &lt;/blockquote&gt;
+  &lt;figcaption&gt;
+    — MDN Web Docs, &lt;cite&gt;HTML: Linguagem de Marcação de Hipertexto&lt;/cite&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="codigo" class="fade-in">
+          <h2 data-icon="💻">Código e Pré-formatação</h2>
+
+          <div class="tag-grid">
+            <div class="tag-card">
+              <div class="tag-name">&lt;code&gt;</div>
+              <p class="tag-description">
+                Fragmento de código inline. Fonte monoespaçada.
+              </p>
+              <div class="live-example">
+                Use a função <code>console.log()</code> para debugar.
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;pre&gt;</div>
+              <p class="tag-description">
+                Texto pré-formatado. Preserva espaços e quebras de linha.
+              </p>
+              <div class="live-example">
+                <pre
+                  style="
+                    background: #f1f5f9;
+                    padding: 10px;
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                  "
+                >
+Linha 1
+    Linha 2 (indentada)
+Linha 3</pre
+                >
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;samp&gt;</div>
+              <p class="tag-description">Saída de programa ou computador.</p>
+              <div class="live-example">
+                <samp>Erro 404: Página não encontrada</samp>
+              </div>
+            </div>
+
+            <div class="tag-card">
+              <div class="tag-name">&lt;var&gt;</div>
+              <p class="tag-description">
+                Variáveis em contexto matemático ou de programação.
+              </p>
+              <div class="live-example">
+                A área é calculada por <var>π</var> × <var>r</var>².
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>💡 Dica:</strong> Combine <code>&lt;pre&gt;</code> +
+            <code>&lt;code&gt;</code> para blocos de código com preservação de
+            formatação, como nos exemplos desta página.
+          </div>
+        </section>
+
+        <section id="referencias" class="fade-in">
+          <h2 data-icon="📚">Referências e Documentação</h2>
+
+          <p>
+            Para aprofundar seus conhecimentos, consulte sempre a documentação
+            oficial:
+          </p>
+
+          <div style="text-align: center; margin: 30px 0">
+            <a
+              href="https://developer.mozilla.org/pt-BR/docs/Web/HTML"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              📖 MDN Web Docs (HTML)
+            </a>
+            <a
+              href="https://html.spec.whatwg.org/"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              📋 Especificação HTML Living Standard
+            </a>
+            <a
+              href="https://www.w3schools.com/html/"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              🎓 W3Schools HTML Tutorial
+            </a>
+            <a
+              href="https://validator.w3.org/"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              ✅ Validador HTML W3C
+            </a>
+          </div>
+
+          <div class="info-box">
+            <strong>🎯 Próximos Passos:</strong>
+            <ol style="margin-left: 20px; margin-top: 10px">
+              <li>
+                Pratique cada tag em um editor de código (VS Code, Sublime,
+                etc.)
+              </li>
+              <li>Use o Validador W3C para verificar erros no seu HTML</li>
+              <li>
+                Estude CSS para estilizar estas tags de forma profissional
+              </li>
+              <li>
+                Aprenda sobre acessibilidade (ARIA) para complementar a
+                semântica
+              </li>
+            </ol>
+          </div>
+
+          <h3>Checklist de Aprendizado</h3>
+          <ul style="list-style: none; margin: 20px 0">
+            <li
+              style="
+                padding: 10px;
+                background: #f0fdf4;
+                margin: 5px 0;
+                border-radius: 8px;
+              "
+            >
+              ✅ Entender a diferença entre tags visuais e semânticas
+            </li>
+            <li
+              style="
+                padding: 10px;
+                background: #f0fdf4;
+                margin: 5px 0;
+                border-radius: 8px;
+              "
+            >
+              ✅ Saber quando usar h1-h6 corretamente
+            </li>
+            <li
+              style="
+                padding: 10px;
+                background: #f0fdf4;
+                margin: 5px 0;
+                border-radius: 8px;
+              "
+            >
+              ✅ Dominar listas (ul, ol, dl) e seus atributos
+            </li>
+            <li
+              style="
+                padding: 10px;
+                background: #f0fdf4;
+                margin: 5px 0;
+                border-radius: 8px;
+              "
+            >
+              ✅ Criar links seguros e funcionais
+            </li>
+            <li
+              style="
+                padding: 10px;
+                background: #f0fdf4;
+                margin: 5px 0;
+                border-radius: 8px;
+              "
+            >
+              ✅ Formatar código e citações adequadamente
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        <p style="font-size: 1.2rem; margin-bottom: 10px">
+          🚀 Parte 2 da Série HTML
+        </p>
+        <p>HTML5 + CSS3 Puro</p>
+        <p style="margin-top: 15px; opacity: 0.8; font-size: 0.9rem">
+          Lembre-se: a prática leva à perfeição. Continue codando!
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Barra de progresso de leitura
+      window.addEventListener("scroll", () => {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+      });
+
+      // Função de copiar código
+      function copyCode(btn) {
+        const codeBlock = btn.closest(".code-example").querySelector("code");
+        const text = codeBlock.innerText;
+
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = "Copiado!";
+          btn.style.background = "var(--success)";
+
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "rgba(255,255,255,0.1)";
+          }, 2000);
+        });
+      }
+
+      // Animação suave ao clicar nos links de navegação
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Revelar elementos ao scrollar
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("section").forEach((section) => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "all 0.6s ease-out";
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>
