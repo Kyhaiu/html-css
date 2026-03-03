@@ -36,7 +36,7 @@ Este repositório serve como material de apoio para estudantes de desenvolviment
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/html-css.git
+git clone https://github.com/Kyhaiu/html-css.git
 
 # Entre na pasta
 cd html-css
