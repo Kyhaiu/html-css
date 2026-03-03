@@ -50,10 +50,10 @@ cd html-css
 ### Módulo 1: Fundamentos
 | Tema | Arquivo |
 |------|---------|
-| Estrutura Básica do Documento | [estrutura-basica.html](fundamentos/01-estrutura-basica.html) |
-| Tags Textuais | [tags-textuais.html](fundamentos/02-tags-textuais.html) |
-| Listas (ul, ol, dl) | [listas.html](fundamentos/03-listas.html) |
-| Links e Navegação | [links-navegacao.html](fundamentos/04-links-navegacao.html) |
+| Estrutura Básica do Documento | [estrutura-basica.html](fundamentos/estrutura-basica.html) |
+| Tags Textuais | [tags-textuais.html](fundamentos/tags-textuais.html) |
+| Listas (ul, ol, dl) | [listas.html](fundamentos/listas.html) |
+| Links e Navegação | [links-navegacao.html](fundamentos/links-navegacao.html) |
 
 ### Módulo 2: Semântica HTML5
 | Tema | Arquivo |
