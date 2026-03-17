@@ -693,6 +693,8 @@
         border-radius: 12px;
         padding: 20px;
         margin: 20px 0;
+        display: inline-block;
+        z-index: 50; /* Contexto de empilhamento para o menu */
       }
 
       .mega-menu-trigger {
@@ -703,26 +705,74 @@
         text-decoration: none;
         display: inline-block;
         cursor: pointer;
+        position: relative;
+        z-index: 51;
       }
 
       .mega-menu-content {
         display: none;
         position: absolute;
-        top: 100%;
+        top: calc(100% + 10px); /* Espaçamento visível */
         left: 0;
-        right: 0;
+        min-width: 600px;
         background: white;
         border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
         padding: 30px;
-        margin-top: 10px;
-        z-index: 10;
+        z-index: 100; /* Acima de tudo */
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
       }
 
-      .mega-menu-demo:hover .mega-menu-content {
+      /* Ponte invisível que conecta trigger ao conteúdo */
+      .mega-menu-content::before {
+        content: "";
+        position: absolute;
+        top: -10px; /* Mesmo valor do gap */
+        left: 0;
+        right: 0;
+        height: 10px;
+        background: transparent;
+      }
+
+      /* Estados hover - agora também na ponte */
+      .mega-menu-demo:hover .mega-menu-content,
+      .mega-menu-demo:focus-within .mega-menu-content {
         display: grid;
+      }
+
+      .mega-menu-demo:hover .mega-menu-trigger,
+      .mega-menu-trigger:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Estilos internos do menu */
+      .mega-menu-content h4 {
+        margin: 0 0 15px 0;
+        color: var(--dark);
+        font-size: 1.1rem;
+      }
+
+      .mega-menu-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .mega-menu-content li {
+        margin: 8px 0;
+      }
+
+      .mega-menu-content a {
+        color: #64748b;
+        text-decoration: none;
+        transition: color 0.3s;
+        display: block;
+        padding: 5px 0;
+      }
+
+      .mega-menu-content a:hover {
+        color: var(--primary);
       }
 
       @media (max-width: 768px) {
@@ -1353,7 +1403,7 @@ a:focus {
 &lt;/style&gt;</code></pre>
           </div>
 
-          <h3>Breadcrumbs (Filo de Ariadne)</h3>
+          <h3>Breadcrumbs (Fio de Ariadne)</h3>
           <div class="breadcrumb-demo">
             <a href="#" class="breadcrumb-item">Home</a>
             <span class="breadcrumb-separator">/</span>
@@ -1370,15 +1420,18 @@ a:focus {
               <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
             </div>
             <pre><code>&lt;nav aria-label="Breadcrumb"&gt;
-  &lt;ol&gt;
+  &lt;ol class="breadcrumb-list"&gt;
     &lt;li&gt;
       &lt;a href="/"&gt;Home&lt;/a&gt;
+      &lt;span class="breadcrumb-separator" aria-hidden="true"&gt;/&lt;/span&gt;
     &lt;/li&gt;
     &lt;li&gt;
       &lt;a href="/produtos"&gt;Produtos&lt;/a&gt;
+      &lt;span class="breadcrumb-separator" aria-hidden="true"&gt;/&lt;/span&gt;
     &lt;/li&gt;
     &lt;li&gt;
       &lt;a href="/produtos/eletronicos"&gt;Eletrônicos&lt;/a&gt;
+      &lt;span class="breadcrumb-separator" aria-hidden="true"&gt;/&lt;/span&gt;
     &lt;/li&gt;
     &lt;li aria-current="page"&gt;
       Notebooks
@@ -1386,16 +1439,47 @@ a:focus {
   &lt;/ol&gt;
 &lt;/nav&gt;
 
-&lt;!-- Esconder separadores visualmente, mas não para leitores de tela --&gt;
 &lt;style&gt;
-  .separator {
-    margin: 0 10px;
-    color: #94a3b8;
+  .breadcrumb-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
   }
   
-  /* Esconde o último separador */
-  li:last-child .separator {
+  .breadcrumb-list li {
+    display: flex;
+    align-items: center;
+  }
+  
+  .breadcrumb-list a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  
+  .breadcrumb-list a:hover {
+    text-decoration: underline;
+  }
+  
+  .breadcrumb-separator {
+    margin: 0 8px;
+    color: #94a3b8;
+    user-select: none;
+  }
+  
+  /* Remove separador do último item (página atual) */
+  li[aria-current="page"] .breadcrumb-separator,
+  li:last-child .breadcrumb-separator {
     display: none;
+  }
+  
+  /* Estilo para página atual */
+  li[aria-current="page"] {
+    color: #64748b;
+    font-weight: 600;
   }
 &lt;/style&gt;</code></pre>
           </div>
@@ -1406,7 +1490,7 @@ a:focus {
             <a href="#" class="page-link">1</a>
             <a href="#" class="page-link active" aria-current="page">2</a>
             <a href="#" class="page-link">3</a>
-            <span style="padding: 10px">...</span>
+            <span class="pagination-ellipsis" aria-hidden="true">...</span>
             <a href="#" class="page-link">10</a>
             <a href="#" class="page-link">→</a>
           </div>
@@ -1417,52 +1501,139 @@ a:focus {
               <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
             </div>
             <pre><code>&lt;nav aria-label="Paginação"&gt;
-  &lt;ul style="display: flex; gap: 5px; list-style: none;"&gt;
+  &lt;ul class="pagination-list"&gt;
     &lt;li&gt;
-      &lt;a href="?page=1" class="page-link"&gt;← Anterior&lt;/a&gt;
+      &lt;a href="?page=1" class="page-link" aria-label="Página anterior"&gt;
+        &amp;larr;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li&gt;
       &lt;a href="?page=1" class="page-link"&gt;1&lt;/a&gt;
     &lt;/li&gt;
     &lt;li&gt;
-      &lt;a href="?page=2" class="page-link" aria-current="page"&gt;2&lt;/a&gt;
+      &lt;a href="?page=2" class="page-link active" aria-current="page" aria-label="Página 2, página atual"&gt;
+        2
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li&gt;
-      &lt;span aria-label="Página atual"&gt;...&lt;/span&gt;
+      &lt;a href="?page=3" class="page-link"&gt;3&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;span class="pagination-ellipsis" aria-hidden="true"&gt;...&lt;/span&gt;
+      &lt;span class="visually-hidden"&gt;Páginas 4 a 9 omitidas&lt;/span&gt;
     &lt;/li&gt;
     &lt;li&gt;
       &lt;a href="?page=10" class="page-link"&gt;10&lt;/a&gt;
     &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href="?page=3" class="page-link" aria-label="Próxima página"&gt;
+        &amp;rarr;
+      &lt;/a&gt;
+    &lt;/li&gt;
   &lt;/ul&gt;
-&lt;/nav&gt;</code></pre>
+&lt;/nav&gt;
+
+&lt;style&gt;
+  .pagination-list {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--dark);
+    background: white;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s;
+    font-weight: 600;
+  }
+  
+  .page-link:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  
+  .page-link.active,
+  .page-link[aria-current="page"] {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    cursor: default;
+    pointer-events: none;
+  }
+  
+  .pagination-ellipsis {
+    padding: 0 10px;
+    color: #64748b;
+    user-select: none;
+  }
+  
+  /* Esconde visualmente mas mantém para leitores de tela */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+&lt;/style&gt;</code></pre>
           </div>
 
           <h3>Mega Menu (Menu Expandido)</h3>
           <div class="mega-menu-demo">
-            <a href="#" class="mega-menu-trigger">Produtos ▼</a>
-            <div class="mega-menu-content">
-              <div>
-                <h4>Eletrônicos</h4>
-                <ul style="list-style: none; padding: 0">
-                  <li><a href="#">Notebooks</a></li>
-                  <li><a href="#">Smartphones</a></li>
-                  <li><a href="#">Tablets</a></li>
+            <a
+              href="#"
+              class="mega-menu-trigger"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              Produtos ▼
+            </a>
+            <div
+              class="mega-menu-content"
+              role="menu"
+              aria-label="Submenu Produtos"
+            >
+              <div role="none">
+                <h4 role="presentation">Eletrônicos</h4>
+                <ul role="none">
+                  <li role="none"><a href="#" role="menuitem">Notebooks</a></li>
+                  <li role="none">
+                    <a href="#" role="menuitem">Smartphones</a>
+                  </li>
+                  <li role="none"><a href="#" role="menuitem">Tablets</a></li>
                 </ul>
               </div>
-              <div>
-                <h4>Periféricos</h4>
-                <ul style="list-style: none; padding: 0">
-                  <li><a href="#">Teclados</a></li>
-                  <li><a href="#">Mouses</a></li>
-                  <li><a href="#">Monitores</a></li>
+              <div role="none">
+                <h4 role="presentation">Periféricos</h4>
+                <ul role="none">
+                  <li role="none"><a href="#" role="menuitem">Teclados</a></li>
+                  <li role="none"><a href="#" role="menuitem">Mouses</a></li>
+                  <li role="none"><a href="#" role="menuitem">Monitores</a></li>
                 </ul>
               </div>
-              <div>
-                <h4>Acessórios</h4>
-                <ul style="list-style: none; padding: 0">
-                  <li><a href="#">Mochilas</a></li>
-                  <li><a href="#">Hubs USB</a></li>
-                  <li><a href="#">Webcams</a></li>
+              <div role="none">
+                <h4 role="presentation">Acessórios</h4>
+                <ul role="none">
+                  <li role="none"><a href="#" role="menuitem">Mochilas</a></li>
+                  <li role="none"><a href="#" role="menuitem">Hubs USB</a></li>
+                  <li role="none"><a href="#" role="menuitem">Webcams</a></li>
                 </ul>
               </div>
             </div>
