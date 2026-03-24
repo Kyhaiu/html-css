@@ -1,0 +1,1867 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Tags de Separação, Agrupamento e Layouts Semânticos | Guia Completo
+    </title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #7c3aed;
+        --accent: #f59e0b;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --code-bg: #0f172a;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --section-color: #ec4899;
+        --article-color: #8b5cf6;
+        --aside-color: #f59e0b;
+        --header-color: #3b82f6;
+        --footer-color: #64748b;
+        --main-color: #10b981;
+      }
+
+      body {
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        padding: 60px 20px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 20px 20px;
+        animation: moveGrid 20s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes moveGrid {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(20px, 20px);
+        }
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .nav-layout {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 16px;
+        margin: 30px 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 20px;
+        z-index: 100;
+      }
+
+      .nav-layout h3 {
+        margin-bottom: 15px;
+        color: var(--primary);
+        font-size: 1.1rem;
+      }
+
+      .layout-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
+      }
+
+      .layout-nav a {
+        text-decoration: none;
+        background: var(--light);
+        color: var(--dark);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .layout-nav a:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      }
+
+      main {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+      }
+
+      section {
+        margin-bottom: 60px;
+        scroll-margin-top: 120px;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      h2::before {
+        content: attr(data-icon);
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        color: var(--secondary);
+        margin: 30px 0 15px;
+      }
+
+      p {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .intro-box {
+        background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        padding: 30px;
+        border-radius: 16px;
+        margin: 30px 0;
+        border-left: 5px solid var(--primary);
+      }
+
+      .code-example {
+        background: var(--code-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 25px 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .code-header {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .code-title {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .copy-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .copy-btn:hover {
+        background: var(--primary);
+      }
+
+      pre {
+        padding: 25px;
+        overflow-x: auto;
+        color: #e2e8f0;
+        font-family: "Fira Code", "Consolas", monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      code {
+        font-family: "Fira Code", "Consolas", monospace;
+      }
+
+      .preview-box {
+        background: #f1f5f9;
+        border: 2px dashed #cbd5e1;
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 15px;
+      }
+
+      .preview-label {
+        font-size: 0.85rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .layout-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+
+      .element-card {
+        background: white;
+        border: 3px solid;
+        border-radius: 16px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .element-card.div {
+        border-color: #64748b;
+      }
+      .element-card.span {
+        border-color: #3b82f6;
+      }
+      .element-card.section {
+        border-color: var(--section-color);
+      }
+      .element-card.article {
+        border-color: var(--article-color);
+      }
+      .element-card.aside {
+        border-color: var(--aside-color);
+      }
+      .element-card.header {
+        border-color: var(--header-color);
+      }
+      .element-card.footer {
+        border-color: var(--footer-color);
+      }
+      .element-card.main {
+        border-color: var(--main-color);
+      }
+
+      .element-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .element-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 15px;
+      }
+
+      .element-card.div .element-badge {
+        background: #64748b;
+      }
+      .element-card.span .element-badge {
+        background: #3b82f6;
+      }
+      .element-card.section .element-badge {
+        background: var(--section-color);
+      }
+      .element-card.article .element-badge {
+        background: var(--article-color);
+      }
+      .element-card.aside .element-badge {
+        background: var(--aside-color);
+      }
+      .element-card.header .element-badge {
+        background: var(--header-color);
+      }
+      .element-card.footer .element-badge {
+        background: var(--footer-color);
+      }
+      .element-card.main .element-badge {
+        background: var(--main-color);
+      }
+
+      .element-name {
+        font-family: "Fira Code", monospace;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .element-card.div .element-name {
+        color: #64748b;
+      }
+      .element-card.span .element-name {
+        color: #3b82f6;
+      }
+      .element-card.section .element-name {
+        color: var(--section-color);
+      }
+      .element-card.article .element-name {
+        color: var(--article-color);
+      }
+      .element-card.aside .element-name {
+        color: var(--aside-color);
+      }
+      .element-card.header .element-name {
+        color: var(--header-color);
+      }
+      .element-card.footer .element-name {
+        color: var(--footer-color);
+      }
+      .element-card.main .element-name {
+        color: var(--main-color);
+      }
+
+      .highlight {
+        background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .warning-box {
+        background: #fff7ed;
+        border-left: 5px solid var(--warning);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .info-box {
+        background: #eff6ff;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .tip-box {
+        background: #f0fdf4;
+        border-left: 5px solid var(--success);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .danger-box {
+        background: #fef2f2;
+        border-left: 5px solid var(--danger);
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .landmarks-demo {
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 30px;
+        margin: 25px 0;
+        border: 2px solid #e2e8f0;
+      }
+
+      .landmark-structure {
+        display: grid;
+        gap: 10px;
+      }
+
+      .landmark-box {
+        padding: 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .landmark-box::before {
+        content: attr(data-tag);
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 0.75rem;
+        opacity: 0.7;
+        font-family: "Fira Code", monospace;
+      }
+
+      .landmark-header {
+        background: var(--header-color);
+        grid-column: 1 / -1;
+      }
+      .landmark-nav {
+        background: #6366f1;
+        grid-column: 1 / -1;
+      }
+      .landmark-main {
+        background: var(--main-color);
+        min-height: 200px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 10px;
+        padding: 20px;
+      }
+      .landmark-article {
+        background: #059669;
+        padding: 15px;
+        border-radius: 6px;
+      }
+      .landmark-section {
+        background: #047857;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 10px;
+      }
+      .landmark-aside {
+        background: var(--aside-color);
+        padding: 15px;
+        border-radius: 6px;
+      }
+      .landmark-footer {
+        background: var(--footer-color);
+        grid-column: 1 / -1;
+      }
+
+      .visual-hierarchy {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border-radius: 16px;
+        padding: 30px;
+        margin: 25px 0;
+        border: 2px solid #bae6fd;
+      }
+
+      .hierarchy-level {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 15px 0;
+        border-left: 4px solid var(--primary);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .pattern-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+
+      .pattern-card {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .pattern-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+      }
+
+      .pattern-preview {
+        background: #f1f5f9;
+        padding: 30px;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .pattern-blog {
+        display: grid;
+        gap: 10px;
+      }
+      .pattern-blog header {
+        background: #3b82f6;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .pattern-blog main {
+        background: #10b981;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        min-height: 100px;
+      }
+      .pattern-blog aside {
+        background: #f59e0b;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .pattern-blog footer {
+        background: #64748b;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .pattern-dashboard {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 10px;
+      }
+      .pattern-dashboard nav {
+        background: #1e293b;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .pattern-dashboard .content {
+        display: grid;
+        gap: 10px;
+      }
+      .pattern-dashboard header {
+        background: #3b82f6;
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+      }
+      .pattern-dashboard main {
+        background: #f1f5f9;
+        padding: 20px;
+        border-radius: 8px;
+        min-height: 80px;
+        border: 2px dashed #cbd5e1;
+      }
+
+      .pattern-info {
+        padding: 20px;
+      }
+
+      .pattern-info h4 {
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      details {
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        margin: 15px 0;
+        overflow: hidden;
+      }
+
+      summary {
+        padding: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--primary);
+        background: white;
+        transition: background 0.3s;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      summary::before {
+        content: "▶";
+        font-size: 0.8rem;
+        transition: transform 0.3s;
+      }
+
+      details[open] summary::before {
+        transform: rotate(90deg);
+      }
+
+      details[open] summary {
+        background: #eff6ff;
+        border-bottom: 2px solid #e2e8f0;
+      }
+
+      details > div {
+        padding: 20px;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .comparison-table th {
+        background: var(--primary);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .comparison-table td {
+        padding: 15px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .comparison-table tr:hover {
+        background: #f8fafc;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        color: white;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 16px;
+        margin-top: 40px;
+      }
+
+      .doc-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin: 10px;
+      }
+
+      .doc-link:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+      }
+
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        z-index: 1000;
+        transition: width 0.3s;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: #f0fdf4;
+        margin: 10px 0;
+        border-radius: 8px;
+        border-left: 4px solid var(--success);
+      }
+
+      .check-icon {
+        width: 24px;
+        height: 24px;
+        background: var(--success);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        main {
+          padding: 20px;
+        }
+        .layout-grid {
+          grid-template-columns: 1fr;
+        }
+        .pattern-grid {
+          grid-template-columns: 1fr;
+        }
+        .landmark-main {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.6s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="container">
+      <header>
+        <h1>📦 Separação, Agrupamento e Layouts</h1>
+        <p class="subtitle">
+          Domine elementos de bloco, inline e estruturas semânticas para criar
+          layouts modernos e acessíveis
+        </p>
+      </header>
+
+      <nav class="nav-layout">
+        <h3>📑 Navegação Rápida</h3>
+        <ul class="layout-nav">
+          <li><a href="#introducao">Introdução</a></li>
+          <li><a href="#genericos">Genéricos</a></li>
+          <li><a href="#semanticos">Semânticos</a></li>
+          <li><a href="#landmarks">Landmarks</a></li>
+          <li><a href="#detalhes">Details</a></li>
+          <li><a href="#figure">Figure</a></li>
+          <li><a href="#padroes">Padrões</a></li>
+          <li><a href="#acessibilidade">Acessibilidade</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <section id="introducao" class="fade-in">
+          <h2 data-icon="🚀">Introdução aos Elementos de Estrutura</h2>
+
+          <div class="intro-box">
+            <p>
+              <strong
+                >HTML5 revolucionou a forma como estruturamos documentos</strong
+              >, trazendo elementos semânticos que dão significado ao conteúdo.
+              Antes, tudo era feito com <code>&lt;div&gt;</code> e
+              <code>&lt;span&gt;</code> genéricos. Hoje, temos tags específicas
+              que comunicam a função de cada região da página tanto para
+              navegadores quanto para tecnologias assistivas.
+            </p>
+          </div>
+
+          <h3>Bloco vs Inline: O Conceito Fundamental</h3>
+          <div class="layout-grid">
+            <div class="element-card div">
+              <span class="element-badge">ELEMENTO DE BLOCO</span>
+              <div class="element-name">&lt;div&gt; e similares</div>
+              <p class="tag-description">
+                Ocupa 100% da largura disponível, empilha verticalmente. Aceita
+                margem/padding em todos os lados.
+              </p>
+              <div class="live-example">
+                <div
+                  style="
+                    background: #dbeafe;
+                    padding: 10px;
+                    margin: 5px 0;
+                    border-left: 3px solid #3b82f6;
+                  "
+                >
+                  Bloco 1
+                </div>
+                <div
+                  style="
+                    background: #dbeafe;
+                    padding: 10px;
+                    margin: 5px 0;
+                    border-left: 3px solid #3b82f6;
+                  "
+                >
+                  Bloco 2
+                </div>
+              </div>
+            </div>
+
+            <div class="element-card span">
+              <span class="element-badge">ELEMENTO INLINE</span>
+              <div class="element-name">&lt;span&gt; e similares</div>
+              <p class="tag-description">
+                Ocupa apenas o espaço do conteúdo, flui horizontalmente.
+                Margem/padding vertical não afeta layout.
+              </p>
+              <div class="live-example">
+                <span style="background: #dbeafe; padding: 5px; margin: 0 5px"
+                  >Inline 1</span
+                >
+                <span style="background: #dbeafe; padding: 5px; margin: 0 5px"
+                  >Inline 2</span
+                >
+                <span style="background: #dbeafe; padding: 5px; margin: 0 5px"
+                  >Inline 3</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <strong>💡 Analogia:</strong> Pense em elementos de bloco como
+            <strong>caixas empilhadas</strong> em uma prateleira (cada uma ocupa
+            toda a largura), e elementos inline como
+            <strong>palavras em uma frase</strong> (fluem lado a lado até acabar
+            o espaço).
+          </div>
+        </section>
+
+        <section id="genericos" class="fade-in">
+          <h2 data-icon="🧩">Elementos Genéricos: div e span</h2>
+
+          <p>
+            Embora o HTML5 tenha trazido alternativas semânticas,
+            <code>&lt;div&gt;</code> e <code>&lt;span&gt;</code> ainda são
+            essenciais quando não há um elemento semântico específico ou para
+            agrupamento puramente visual/funcional.
+          </p>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Uso Correto de Divs e Spans</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- DIV: Container de bloco genérico --&gt;
+&lt;div class="card-container"&gt;
+  &lt;div class="card-header"&gt;
+    &lt;h2&gt;Título do Card&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;div class="card-body"&gt;
+    &lt;p&gt;Conteúdo do card...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- SPAN: Container inline genérico --&gt;
+&lt;p&gt;
+  O preço é &lt;span class="currency"&gt;R$&lt;/span&gt;
+  &lt;span class="amount"&gt;99&lt;/span&gt;,
+  &lt;span class="cents"&gt;90&lt;/span&gt;
+&lt;/p&gt;
+
+&lt;!-- Destaque inline sem semântica específica --&gt;
+&lt;p&gt;
+  Entregamos em &lt;span style="color: #10b981; font-weight: bold;"&gt;24 horas&lt;/span&gt;
+  para São Paulo.
+&lt;/p&gt;</code></pre>
+          </div>
+
+          <div class="warning-box">
+            <strong>⚠️ Divitis: O Mal do Excesso</strong>
+            <p style="margin-top: 10px">
+              Evite o "síndrome da div" - usar <code>&lt;div&gt;</code> para
+              tudo quando existem alternativas semânticas. Isso prejudica SEO e
+              acessibilidade.
+            </p>
+            <ul style="margin-left: 20px; margin-top: 10px">
+              <li>
+                ❌ <code>&lt;div class="header"&gt;</code> → ✅
+                <code>&lt;header&gt;</code>
+              </li>
+              <li>
+                ❌ <code>&lt;div class="nav"&gt;</code> → ✅
+                <code>&lt;nav&gt;</code>
+              </li>
+              <li>
+                ❌ <code>&lt;div class="article"&gt;</code> → ✅
+                <code>&lt;article&gt;</code>
+              </li>
+            </ul>
+          </div>
+
+          <h3>Quando Ainda Usar Div?</h3>
+          <div class="layout-grid">
+            <div class="element-card div">
+              <span class="element-badge">WRAPPERS</span>
+              <div class="element-name">Containers de Layout</div>
+              <p>
+                Para agrupar elementos apenas para estilização CSS (Flexbox/Grid
+                containers) quando não há significado semântico.
+              </p>
+            </div>
+            <div class="element-card div">
+              <span class="element-badge">COMPONENTES</span>
+              <div class="element-name">Widgets Reutilizáveis</div>
+              <p>
+                Cards, modais, tooltips e componentes de UI que são genéricos
+                por natureza.
+              </p>
+            </div>
+            <div class="element-card div">
+              <span class="element-badge">UTILITÁRIOS</span>
+              <div class="element-name">Helpers de Espaçamento</div>
+              <p>
+                Divs vazios para clearfix (legado), divisores decorativos ou
+                espaçadores.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="semanticos" class="fade-in">
+          <h2 data-icon="🏗️">Elementos Semânticos de Estrutura</h2>
+
+          <p>
+            HTML5 introduziu elementos que descrevem o
+            <strong>propósito</strong> do conteúdo, não apenas sua apresentação.
+            Isso é crucial para leitores de tela, mecanismos de busca e
+            manutenção de código.
+          </p>
+
+          <div class="layout-grid">
+            <div class="element-card header">
+              <span class="element-badge">CABEÇALHO</span>
+              <div class="element-name">&lt;header&gt;</div>
+              <p class="tag-description">
+                Introdução de conteúdo ou navegação. Pode haver múltiplos por
+                página (ex: header de um artigo).
+              </p>
+              <div
+                class="live-example"
+                style="
+                  background: #dbeafe;
+                  padding: 15px;
+                  border-radius: 8px;
+                  border-left: 4px solid var(--header-color);
+                "
+              >
+                <strong style="color: var(--header-color)">Header</strong><br />
+                <small>Logo, título principal, navegação primária</small>
+              </div>
+            </div>
+
+            <div class="element-card main">
+              <span class="element-badge">CONTEÚDO PRINCIPAL</span>
+              <div class="element-name">&lt;main&gt;</div>
+              <p class="tag-description">
+                Conteúdo único e principal da página. Apenas um por documento,
+                não pode ser filho de article/aside/nav.
+              </p>
+              <div
+                class="live-example"
+                style="
+                  background: #d1fae5;
+                  padding: 15px;
+                  border-radius: 8px;
+                  border-left: 4px solid var(--main-color);
+                "
+              >
+                <strong style="color: var(--main-color)">Main</strong><br />
+                <small>Conteúdo central, exclusivo desta página</small>
+              </div>
+            </div>
+
+            <div class="element-card section">
+              <span class="element-badge">SEÇÃO GENÉRICA</span>
+              <div class="element-name">&lt;section&gt;</div>
+              <p class="tag-description">
+                Agrupamento temático de conteúdo. Geralmente tem um heading
+                (h2-h6) como primeiro filho.
+              </p>
+              <div
+                class="live-example"
+                style="
+                  background: #fce7f3;
+                  padding: 15px;
+                  border-radius: 8px;
+                  border-left: 4px solid var(--section-color);
+                "
+              >
+                <strong style="color: var(--section-color)">Section</strong
+                ><br />
+                <small
+                  >Capítulos, áreas temáticas, grupos de funcionalidade</small
+                >
+              </div>
+            </div>
+
+            <div class="element-card article">
+              <span class="element-badge">CONTEÚDO INDEPENDENTE</span>
+              <div class="element-name">&lt;article&gt;</div>
+              <p class="tag-description">
+                Conteúdo auto-contido que faria sentido fora da página (post de
+                blog, card de produto, comentário).
+              </p>
+              <div
+                class="live-example"
+                style="
+                  background: #ede9fe;
+                  padding: 15px;
+                  border-radius: 8px;
+                  border-left: 4px solid var(--article-color);
+                "
+              >
+                <strong style="color: var(--article-color)">Article</strong
+                ><br />
+                <small>Posts, produtos, widgets de conteúdo reusáveis</small>
+              </div>
+            </div>
+
+            <div class="element-card aside">
+              <span class="element-badge">CONTEÚDO TANGENCIAL</span>
+              <div class="element-name">&lt;aside&gt;</div>
+              <p class="tag-description">
+                Conteúdo relacionado mas separado do fluxo principal (sidebars,
+                boxes de informação, publicidade).
+              </p>
+              <div
+                class="live-example"
+                style="
+                  background: #fef3c7;
+                  padding: 15px;
+                  border-radius: 8px;
+                  border-left: 4px solid var(--aside-color);
+                "
+              >
+                <strong style="color: var(--aside-color)">Aside</strong><br />
+                <small>Sidebars, links relacionados, bio do autor</small>
+              </div>
+            </div>
+
+            <div class="element-card footer">
+              <span class="element-badge">RODAPÉ</span>
+              <div class="element-name">&lt;footer&gt;</div>
+              <p class="tag-description">
+                Informações de fechamento: autor, copyright, links relacionados.
+                Pode haver múltiplos.
+              </p>
+              <div
+                class="live-example"
+                style="
+                  background: #f1f5f9;
+                  padding: 15px;
+                  border-radius: 8px;
+                  border-left: 4px solid var(--footer-color);
+                "
+              >
+                <strong style="color: var(--footer-color)">Footer</strong><br />
+                <small>Copyright, links de contato, mapa do site</small>
+              </div>
+            </div>
+          </div>
+
+          <h3>Article vs Section: Entendendo a Diferença</h3>
+          <div class="comparison-table">
+            <thead>
+              <tr>
+                <th>&lt;article&gt;</th>
+                <th>&lt;section&gt;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Conteúdo <strong>independente</strong> (faz sentido sozinho)
+                </td>
+                <td>
+                  Agrupamento <strong>temático</strong> (precisa de contexto)
+                </td>
+              </tr>
+              <tr>
+                <td>Ex: Post de blog, comentário, produto</td>
+                <td>Ex: Introdução, capítulo, área de features</td>
+              </tr>
+              <tr>
+                <td>Pode conter sections dentro</td>
+                <td>Pode conter articles dentro</td>
+              </tr>
+              <tr>
+                <td>Syndicatable (pode ser distribuído via RSS)</td>
+                <td>Estrutural (organiza o documento)</td>
+              </tr>
+            </tbody>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Aninhamento Correto</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Estrutura de Blog: Section contém Articles --&gt;
+&lt;section id="ultimos-posts"&gt;
+  &lt;h2&gt;Últimos Artigos&lt;/h2&gt;
+  
+  &lt;article&gt;
+    &lt;header&gt;
+      &lt;h3&gt;Título do Post&lt;/h3&gt;
+      &lt;time datetime="2024-03-20"&gt;20 de Março&lt;/time&gt;
+    &lt;/header&gt;
+    &lt;p&gt;Resumo do conteúdo...&lt;/p&gt;
+    &lt;footer&gt;
+      &lt;p&gt;Por João Silva&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/article&gt;
+  
+  &lt;article&gt;
+    &lt;!-- Outro post --&gt;
+  &lt;/article&gt;
+&lt;/section&gt;
+
+&lt;!-- Article contendo Sections --&gt;
+&lt;article&gt;
+  &lt;h1&gt;Guia Completo HTML&lt;/h1&gt;
+  
+  &lt;section&gt;
+    &lt;h2&gt;Introdução&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+  &lt;/section&gt;
+  
+  &lt;section&gt;
+    &lt;h2&gt;Conceitos Avançados&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="landmarks" class="fade-in">
+          <h2 data-icon="🗺️">Landmarks e Estrutura de Página</h2>
+
+          <p>
+            Landmarks são regiões da página que ajudam tecnologias assistivas
+            (leitores de tela) a navegar rapidamente. Elementos semânticos HTML5
+            mapeiam automaticamente para landmarks ARIA.
+          </p>
+
+          <div class="landmarks-demo">
+            <h3 style="margin-bottom: 20px; color: var(--dark)">
+              Anatomia de uma Página Semântica
+            </h3>
+            <div class="landmark-structure">
+              <div
+                class="landmark-box landmark-header"
+                data-tag="&lt;header&gt;"
+              >
+                Header<br />
+                <small style="font-weight: 400; opacity: 0.9"
+                  ><em>banner landmark</em>: Define o cabeçalho do site,
+                  geralmente contendo o logotipo, nome da empresa e, às vezes, a
+                  navegação principal (logo + menu).</small
+                >
+              </div>
+              <div class="landmark-box landmark-nav" data-tag="&lt;nav&gt;">
+                Navigation<br />
+                <small style="font-weight: 400; opacity: 0.9"
+                  ><em>navigation landmark</em>: Define uma seção contendo links
+                  de navegação, como o menu principal, menu de rodapé ou
+                  navegação interna da página.</small
+                >
+              </div>
+              <div class="landmark-box landmark-main" data-tag="&lt;main&gt;">
+                <div class="landmark-article" style="grid-column: 1">
+                  Article 1<br />
+                  <div class="landmark-section">Section</div>
+                  <div class="landmark-section">Section</div>
+                </div>
+                <div
+                  class="landmark-aside"
+                  style="grid-column: 2"
+                  data-tag="&lt;aside&gt;"
+                >
+                  Aside<br />
+                  <small
+                    ><em>complementary landmark</em>: é um elemento de
+                    acessibilidade web que define uma seção de suporte, como uma
+                    barra lateral, lateral ou caixa de destaque, que complementa
+                    o conteúdo principal</small
+                  >
+                </div>
+              </div>
+              <div
+                class="landmark-box landmark-footer"
+                data-tag="&lt;footer&gt;"
+              >
+                Footer<br />
+                <small style="font-weight: 400; opacity: 0.9"
+                  ><em>contentinfo landmark</em>: é uma região que identifica
+                  informações de rodapé comuns em um site, como direitos
+                  autorais (copyright), links de privacidade e
+                  acessibilidade</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>🎯 Navegação por Landmarks:</strong> Usuários de leitores de
+            tela (NVDA, JAWS, VoiceOver) podem pressionar teclas de atalho para
+            pular diretamente para header, nav, main, aside ou footer. Sem essas
+            tags, a navegação fica linear e lenta.
+          </div>
+
+          <h3>Elemento &lt;nav&gt;: Navegação Estratégica</h3>
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Uso Correto do Nav</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Navegação principal --&gt;
+&lt;nav aria-label="Navegação principal"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/" aria-current="page"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/contato"&gt;Contato&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- Múltiplos navs precisam de labels --&gt;
+&lt;nav aria-label="Redes sociais"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;LinkedIn&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- Breadcrumb (caminho de navegação) --&gt;
+&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/produtos"&gt;Produtos&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current="page"&gt;Notebooks&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+
+          <div class="warning-box">
+            <strong>⚠️ Nem toda lista de links precisa ser &lt;nav&gt;:</strong>
+            Use <code>&lt;nav&gt;</code> apenas para blocos de links de
+            navegação <strong>principais</strong>. Links no footer (copyright,
+            políticas secundárias) ou em textos inline não precisam de nav.
+          </div>
+        </section>
+
+        <section id="detalhes" class="fade-in">
+          <h2 data-icon="📂">Details e Summary: Conteúdo Colapsável</h2>
+
+          <p>
+            Os elementos <code>&lt;details&gt;</code> e
+            <code>&lt;summary&gt;</code> criam widgets de "acordeão" nativos,
+            sem necessidade de JavaScript. Perfeitos para FAQs, termos de uso e
+            conteúdo opcional.
+          </p>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Acordeão Sem JavaScript</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;details&gt;
+  &lt;summary&gt;Quais formas de pagamento são aceitas?&lt;/summary&gt;
+  &lt;p&gt;Aceitamos cartões de crédito (Visa, Master, Amex), 
+  Pix e boleto bancário. Pagamentos via PayPal estão 
+  disponíveis para compras internacionais.&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;details open&gt;  &lt;!-- Aberto por padrão --&gt;
+  &lt;summary&gt;Política de Devolução&lt;/summary&gt;
+  &lt;ul&gt;
+    &lt;li&gt;7 dias para arrependimento&lt;/li&gt;
+    &lt;li&gt;Produto deve estar lacrado&lt;/li&gt;
+    &lt;li&gt;Frete por conta do comprador&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/details&gt;
+
+&lt;!-- Aninhado (Accordion multinível) --&gt;
+&lt;details&gt;
+  &lt;summary&gt;Categoria: Eletrônicos&lt;/summary&gt;
+  &lt;details style="margin-left: 20px; margin-top: 10px;"&gt;
+    &lt;summary&gt;Computadores&lt;/summary&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Notebooks&lt;/li&gt;
+      &lt;li&gt;Desktops&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/details&gt;
+&lt;/details&gt;</code></pre>
+          </div>
+
+          <div class="preview-box">
+            <div class="preview-label">Demonstração Interativa</div>
+            <details style="margin-bottom: 10px">
+              <summary
+                style="cursor: pointer; color: var(--primary); font-weight: 600"
+              >
+                Clique para expandir (exemplo fechado)
+              </summary>
+              <div
+                style="
+                  padding: 15px;
+                  background: #f8fafc;
+                  border-radius: 8px;
+                  margin-top: 10px;
+                "
+              >
+                Este conteúdo estava oculto! Perfeito para manter a página limpa
+                e mostrar informações apenas quando necessário.
+              </div>
+            </details>
+            <details open>
+              <summary
+                style="cursor: pointer; color: var(--primary); font-weight: 600"
+              >
+                Este já vem aberto (atributo open)
+              </summary>
+              <div
+                style="
+                  padding: 15px;
+                  background: #f8fafc;
+                  border-radius: 8px;
+                  margin-top: 10px;
+                "
+              >
+                Útil quando a informação é importante mas opcional, ou quando
+                queremos mostrar o estado por padrão.
+              </div>
+            </details>
+          </div>
+
+          <div class="tip-box">
+            <strong>💡 Estilização Avançada:</strong> O elemento
+            <code>&lt;summary&gt;</code> aceita <code>::marker</code> para
+            customizar a seta (usando <code>list-style</code>) ou pode ser
+            escondida para criar interfaces completamente customizadas com CSS.
+          </div>
+        </section>
+
+        <section id="figure" class="fade-in">
+          <h2 data-icon="🖼️">Figure e Figcaption: Conteúdo Autocontido</h2>
+
+          <p>
+            <code>&lt;figure&gt;</code> representa conteúdo autocontido
+            frequentemente com uma legenda (<code>&lt;figcaption&gt;</code>).
+            Pode conter imagens, diagramas, código, poemas ou citações.
+          </p>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Uso com Imagem e Código</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Figura com imagem --&gt;
+&lt;figure&gt;
+  &lt;img src="grafico-vendas.jpg" alt="Gráfico de crescimento trimestral"&gt;
+  &lt;figcaption&gt;
+    Figura 1: Crescimento de 150% no trimestre Q4-2024.
+    Fonte: Departamento de Analytics.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- Figura com bloco de código --&gt;
+&lt;figure&gt;
+  &lt;pre&gt;&lt;code&gt;function hello() {
+  console.log("Hello World");
+}&lt;/code&gt;&lt;/pre&gt;
+  &lt;figcaption&gt;
+    Listagem 2.1: Função de saudação básica em JavaScript
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- Múltiplas imagens em uma figura --&gt;
+&lt;figure&gt;
+  &lt;img src="foto1.jpg" alt="Vista frontal do produto"&gt;
+  &lt;img src="foto2.jpg" alt="Vista lateral do produto"&gt;
+  &lt;figcaption&gt;
+    Produto visto de diferentes ângulos. Clique para ampliar.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+          </div>
+
+          <div class="info-box">
+            <strong>📊 Quando usar Figure vs Div/Article:</strong>
+            <ul style="margin-left: 20px; margin-top: 10px">
+              <li>
+                Use <code>&lt;figure&gt;</code> quando o conteúdo é
+                <strong>referenciado</strong> no texto principal ("como mostra a
+                Figura 1...")
+              </li>
+              <li>
+                Use <code>&lt;figure&gt;</code> quando o conteúdo pode ser
+                <strong>removido</strong> sem afetar o fluxo principal do
+                documento
+              </li>
+              <li>
+                Não use apenas para posicionar imagens decorativas - use
+                <code>&lt;div&gt;</code> nesse caso
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="padroes" class="fade-in">
+          <h2 data-icon="🎨">Padrões Comuns de Layout</h2>
+
+          <p>
+            Veja como combinar os elementos para criar layouts profissionais
+            reutilizáveis.
+          </p>
+
+          <h3>Layout de Blog/Notícias</h3>
+          <div class="pattern-grid">
+            <div class="pattern-card">
+              <div class="pattern-preview">
+                <div class="pattern-blog">
+                  <header>Header<br /><small>Logo + Nav</small></header>
+                  <main>Main<br /><small>Article + Comentários</small></main>
+                  <aside>Aside<br /><small>Sidebar + Widgets</small></aside>
+                  <footer>Footer<br /><small>Links + Copyright</small></footer>
+                </div>
+              </div>
+              <div class="pattern-info">
+                <h4>Layout Blog Clássico</h4>
+                <p>
+                  Header fixo, conteúdo principal com sidebar lateral e footer.
+                  Main contém articles individuais.
+                </p>
+              </div>
+            </div>
+
+            <div class="pattern-card">
+              <div class="pattern-preview">
+                <div class="pattern-dashboard">
+                  <nav>Sidebar Nav<br /><small>Menu Lateral</small></nav>
+                  <div class="content">
+                    <header>Top Bar<br /><small>Busca + Perfil</small></header>
+                    <main>
+                      Dashboard Content<br /><small>Grids + Cards</small>
+                    </main>
+                  </div>
+                </div>
+              </div>
+              <div class="pattern-info">
+                <h4>Dashboard Administrativo</h4>
+                <p>
+                  Nav lateral fixo, header secundário e área principal flexível.
+                  Ótimo para aplicações web.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Estrutura Completa de Blog</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;body&gt;
+  &lt;!-- Skip link para acessibilidade --&gt;
+  &lt;a href="#main-content" class="skip-link"&gt;Pular para conteúdo&lt;/a&gt;
+
+  &lt;header&gt;
+    &lt;div class="logo"&gt;MeuBlog&lt;/div&gt;
+    &lt;nav aria-label="Principal"&gt;
+      &lt;ul&gt;...&lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;div class="container"&gt;
+    &lt;main id="main-content"&gt;
+      &lt;article&gt;
+        &lt;header&gt;
+          &lt;h1&gt;Título do Post&lt;/h1&gt;
+          &lt;p class="meta"&gt;
+            Por &lt;author&gt;João&lt;/author&gt; em 
+            &lt;time datetime="2024-03-20"&gt;20 Mar&lt;/time&gt;
+          &lt;/p&gt;
+        &lt;/header&gt;
+        
+        &lt;section class="intro"&gt;...&lt;/section&gt;
+        &lt;section class="desenvolvimento"&gt;...&lt;/section&gt;
+        
+        &lt;figure&gt;
+          &lt;img src="foto.jpg" alt="Descrição"&gt;
+          &lt;figcaption&gt;Legenda da imagem&lt;/figcaption&gt;
+        &lt;/figure&gt;
+        
+        &lt;section class="conclusao"&gt;...&lt;/section&gt;
+        
+        &lt;footer&gt;
+          &lt;div class="tags"&gt;...&lt;/div&gt;
+          &lt;div class="share"&gt;...&lt;/div&gt;
+        &lt;/footer&gt;
+      &lt;/article&gt;
+      
+      &lt;section class="comentarios"&gt;
+        &lt;h2&gt;Comentários&lt;/h2&gt;
+        &lt;article class="comentario"&gt;...&lt;/article&gt;
+        &lt;article class="comentario"&gt;...&lt;/article&gt;
+      &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;aside&gt;
+      &lt;section class="bio-autor"&gt;...&lt;/section&gt;
+      &lt;section class="posts-relacionados"&gt;...&lt;/section&gt;
+      &lt;nav class="arquivo"&gt;...&lt;/nav&gt;
+    &lt;/aside&gt;
+  &lt;/div&gt;
+
+  &lt;footer&gt;
+    &lt;div class="colunas"&gt;...&lt;/div&gt;
+    &lt;p class="copyright"&gt;© 2024 MeuBlog&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+          </div>
+
+          <h3>Layout de Landing Page</h3>
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Landing Page com Seções</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;body&gt;
+  &lt;header class="hero"&gt;
+    &lt;nav&gt;...&lt;/nav&gt;
+    &lt;h1&gt;Produto Revolucionário&lt;/h1&gt;
+    &lt;p class="tagline"&gt;...&lt;/p&gt;
+    &lt;a href="#preco" class="cta"&gt;Comprar Agora&lt;/a&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="features" aria-labelledby="features-heading"&gt;
+      &lt;h2 id="features-heading"&gt;Recursos&lt;/h2&gt;
+      &lt;div class="grid-features"&gt;
+        &lt;article class="feature-card"&gt;...&lt;/article&gt;
+        &lt;article class="feature-card"&gt;...&lt;/article&gt;
+        &lt;article class="feature-card"&gt;...&lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="depoimentos" aria-labelledby="testimonials-heading"&gt;
+      &lt;h2 id="testimonials-heading"&gt;O que dizem&lt;/h2&gt;
+      &lt;div class="carousel"&gt;
+        &lt;article class="testimonial"&gt;...&lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section id="preco" aria-labelledby="pricing-heading"&gt;
+      &lt;h2 id="pricing-heading"&gt;Planos&lt;/h2&gt;
+      &lt;div class="pricing-table"&gt;
+        &lt;article class="plan"&gt;...&lt;/article&gt;
+        &lt;article class="plan featured"&gt;...&lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;aside class="faq"&gt;
+      &lt;h2&gt;Dúvidas Frequentes&lt;/h2&gt;
+      &lt;details&gt;...&lt;/details&gt;
+      &lt;details&gt;...&lt;/details&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;nav aria-label="Links do rodapé"&gt;...&lt;/nav&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="acessibilidade" class="fade-in">
+          <h2 data-icon="♿">Acessibilidade em Layouts</h2>
+
+          <h3>Ordem de Leitura Linear</h3>
+          <div class="warning-box">
+            <strong>⚠️ Problema Comum:</strong> CSS Grid e Flexbox permitem
+            reordenar visualmente elementos com <code>order</code>. Isso pode
+            criar uma experiência confusa para usuários de teclado se a ordem
+            visual não corresponder à ordem do DOM.
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Estrutura Acessível</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- ✅ BOM: Ordem lógica no DOM --&gt;
+&lt;main&gt;
+  &lt;article&gt;Conteúdo principal&lt;/article&gt;
+  &lt;aside&gt;Conteúdo complementar&lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;style&gt;
+/* Visualmente side-by-side, mas mantém ordem semântica */
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+&lt;/style&gt;
+
+&lt;!-- ❌ EVITE: Reordenação que confunde --&gt;
+&lt;main style="display: flex;"&gt;
+  &lt;aside style="order: 1;"&gt;Sidebar&lt;/aside&gt;  &lt;!-- Aparece primeiro visualmente --&gt;
+  &lt;article style="order: 2;"&gt;Conteúdo&lt;/article&gt; &lt;!-- Mas está depois no DOM --&gt;
+&lt;/main&gt;</code></pre>
+          </div>
+
+          <h3>Regiões e Navegação por Teclado</h3>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>
+              Use <code>&lt;main&gt;</code> para que usuários possam pular
+              direto ao conteúdo
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>
+              Adicione <code>aria-label</code> em múltiplos
+              <code>&lt;nav&gt;</code> ou <code>&lt;aside&gt;</code>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>
+              Use <code>aria-labelledby</code> para conectar headings às
+              sections
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">✓</div>
+            <div>
+              Evite níveis excessivos de aninhamento (máximo recomendado: 3-4
+              níveis)
+            </div>
+          </div>
+
+          <div class="code-example">
+            <div class="code-header">
+              <span class="code-title">Landmarks com ARIA Labels</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            </div>
+            <pre><code>&lt;!-- Navegação com identificação clara --&gt;
+&lt;nav aria-label="Principal"&gt;...&lt;/nav&gt;
+&lt;nav aria-label="Redes sociais"&gt;...&lt;/nav&gt;
+
+&lt;!-- Seção identificada pelo título --&gt;
+&lt;section aria-labelledby="secao-contato"&gt;
+  &lt;h2 id="secao-contato"&gt;Entre em Contato&lt;/h2&gt;
+  &lt;!-- Leitores de tela anunciam: "Seção, Entre em Contato" --&gt;
+&lt;/section&gt;
+
+&lt;!-- Complementary regions precisam de label quando há múltiplas --&gt;
+&lt;aside aria-label="Posts relacionados"&gt;...&lt;/aside&gt;
+&lt;aside aria-label="Newsletter"&gt;...&lt;/aside&gt;</code></pre>
+          </div>
+
+          <div class="tip-box">
+            <strong>🛠️ Ferramenta de Teste:</strong> Use o
+            <strong>Accessibility Inspector</strong> do Chrome DevTools ou o
+            plugin <strong>axe DevTools</strong> para verificar se todas as
+            regiões da sua página estão corretamente identificadas como
+            landmarks.
+          </div>
+        </section>
+
+        <section id="referencias" class="fade-in">
+          <h2 data-icon="📚">Referências e Próximos Passos</h2>
+
+          <div style="text-align: center; margin: 30px 0">
+            <a
+              href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              📖 MDN - Elementos HTML
+            </a>
+            <a
+              href="https://html5doctor.com/downloads/h5d-sectioning-flowchart.png"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              🗺️ Flowchart: Section vs Article
+            </a>
+            <a
+              href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              ♿ WCAG - Info e Relações
+            </a>
+            <a
+              href="https://validator.w3.org/nu/"
+              class="doc-link"
+              target="_blank"
+              rel="noopener"
+            >
+              ✅ Validador HTML5 Nu
+            </a>
+          </div>
+
+          <div class="info-box">
+            <strong>🎯 Exercícios Práticos:</strong>
+            <ol style="margin-left: 20px; margin-top: 10px">
+              <li>
+                Reescreva um site antigo que use apenas
+                <code>&lt;div&gt;</code>, substituindo por tags semânticas
+                apropriadas
+              </li>
+              <li>
+                Crie 3 layouts diferentes (blog, dashboard, landing) usando
+                apenas HTML semântico (sem CSS)
+              </li>
+              <li>
+                Teste seus layouts com um leitor de tela (NVDA gratuito para
+                Windows, VoiceOver no Mac)
+              </li>
+              <li>
+                Valide se sua estrutura de headings está correta (h1 → h2 → h3,
+                sem pular níveis)
+              </li>
+              <li>
+                Implemente um sistema de "skip links" funcional em um template
+                multi-seção
+              </li>
+            </ol>
+          </div>
+
+          <div class="tip-box">
+            <strong>🔗 Integração com CSS:</strong> Após dominar a estrutura
+            HTML semântica, estude <strong>CSS Grid</strong> e
+            <strong>Flexbox</strong> para posicionar esses elementos. A
+            combinação de HTML5 semântico + CSS moderno é a base de qualquer
+            interface profissional atual.
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p style="font-size: 1.2rem; margin-bottom: 10px">
+          🚀 Parte 5 da Série HTML
+        </p>
+        <p>Tags de Separação, Agrupamento e Layouts Semânticos</p>
+        <p style="margin-top: 15px; opacity: 0.8; font-size: 0.9rem">
+          Estruture com significado. Construa com propósito.
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Barra de progresso de leitura
+      window.addEventListener("scroll", () => {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+      });
+
+      // Função de copiar código
+      function copyCode(btn) {
+        const codeBlock = btn.closest(".code-example").querySelector("code");
+        const text = codeBlock.innerText;
+
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = "Copiado!";
+          btn.style.background = "var(--success)";
+
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "rgba(255,255,255,0.1)";
+          }, 2000);
+        });
+      }
+
+      // Animação suave ao clicar nos links de navegação
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Revelar elementos ao scrollar
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("section").forEach((section) => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "all 0.6s ease-out";
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>
