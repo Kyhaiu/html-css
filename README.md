@@ -56,11 +56,11 @@ cd html-css
 | Links e Navegação | [links-navegacao.html](fundamentos/links-navegacao.html) |
 
 ### Módulo 2: Semântica HTML5
-| Tema | Arquivo |
-|------|---------|
-| Estrutura Semântica | **Em contrução** |
-| Artigos e Conteúdo | **Em contrução** |
-| Texto Semântico | **Em contrução** |
+| Tema                                        | Arquivo                                                                |
+| ------------------------------------------- | ---------------------------------------------------------------------- |
+| Separação, Agrupamento e Layouts Semânticos | [separacao-layouts.html](layouts/layout-semantico.html)             |
+| Artigos e Conteúdo                          | **Em contrução**                                                       |
+| Texto Semântico                             | **Em contrução**                                                       |
 
 ### Módulo 3: Multimídia
 | Tema | Arquivo |
@@ -85,10 +85,13 @@ cd html-css
 | Tabela Acessível | **Em contrução** |
 
 ### Módulo 6: Layouts
-| Tema | Arquivo |
-|------|---------|
-| Layouts Responsivos | **Em contrução** |
-| Outras formas de layouts | **Em contrução** |
+| Tema                   | Arquivo                                                        |
+| ---------------------- | -------------------------------------------------------------- |
+| CSS Flexbox            | [flexbox-layout.html](layouts/flexbox-layout.html)             |
+| Decomposição + Flexbox | [decomposicao-flexbox.html](layouts/decomposicao-layouts.html) |
+| Layouts Responsivos    | **Em contrução**                                               |
+| Grid Layout            | **Em contrução**                                               |
+
 
 ### Módulo 7: Projetos Práticos
 | Projeto | Descrição | Pasta |
